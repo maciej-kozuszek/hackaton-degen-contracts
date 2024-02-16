@@ -1,10 +1,26 @@
 {
+  "scripts": {
+    "build:contracts": "yarn clean; yarn hardhat compile",
+    "clean": "rm -rf ./cache; rm -rf ./dist; rm -rf ./artifacts; rm -rf ./typechain;",
+    "deploy:local": "yarn hardhat deploy --network hardhat"
+  },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
-    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.10",
+    "@nomicfoundation/hardhat-verify": "^2.0.4",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@typechain/ethers-v5": "^11.1.2",
+    "@typechain/hardhat": "^9.1.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.6",
     "@openzeppelin/hardhat-upgrades": "^1.21.0",
-    "ethers": "^5.7.1",
-    "hardhat": "^2.11.2"
+    "ethers": "^5.7.2",
+    "hardhat": "^2.11.2",
+    "hardhat-deploy": "^0.11.45",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.8",
+    "tsconfig-paths": "^4.2.0",
+    "typechain": "^8.3.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@openzeppelin/contracts-upgradeable": "^4.8.3"

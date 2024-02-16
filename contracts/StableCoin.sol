@@ -1,12 +1,11 @@
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.18;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
-import {IERC20Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract StableCoin is ERC20Upgradeable {
-
-    function initialize(string memory name, string memory symbol)  public initializer {
-        __ERC20_init(name, symbol);
-        _mint( msg.sender, 1000000000); 
+contract StableCoin is ERC20 {
+    constructor() ERC20("Stable coin", "STABLE") {
+        _mint(msg.sender, 10_000_000 * 10 ** decimals());
     }
 }
+

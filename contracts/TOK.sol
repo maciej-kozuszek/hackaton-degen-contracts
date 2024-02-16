@@ -8,8 +8,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 
 contract TOK is PausableUpgradeable, OwnableUpgradeable {
-    using SafeERC20Upgradeable for IERC20Upgradeable;
-
+ 
     uint256 private constant ALL = 0;
     uint256 private constant TOKEN = 1;
     uint256 private constant ORDER = 2;
@@ -282,7 +281,7 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
         );
         stableCoinBalance[orderOwner] = stableCoinBalance[orderOwner] - packageAmountPrice;
         orders[_orderId].currentState = State.Removed;
-        coinToken.safeTransfer(
+        coinToken.transfer(
             orderOwner,
             packageAmountPrice
         );
@@ -333,7 +332,7 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
         orders[_orderId].equityTokenOwner = address(this);
         uint256 equityTokenAmount = orders[_orderId].equityTokenAmount;
         orders[_orderId].equityTokenAmount = 0;
-        IERC20Upgradeable(orders[_orderId].tokenAddress).safeTransfer(
+        IERC20Upgradeable(orders[_orderId].tokenAddress).transfer(
             equityTokenOwner,
             equityTokenAmount
         );
@@ -435,11 +434,11 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
             orders[_orderId].equityTokenAmount = 0;
         }
         //TOK -> Buyer
-        IERC20Upgradeable(orders[_orderId].tokenAddress).safeTransfer(
+        IERC20Upgradeable(orders[_orderId].tokenAddress).transfer(
             newOwner,
             orders[_orderId].equityTokenAmount
         );
-        coinToken.safeTransfer(
+        coinToken.transfer(
             orders[_orderId].equityTokenOwner,
             amount
         );
@@ -469,7 +468,7 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
     function deposit(IERC20Upgradeable _stableCoin, uint256 _amount) internal notPaused {
         stableCoinBalance[msg.sender] = stableCoinBalance[msg.sender] + _amount;
 
-        _stableCoin.safeTransferFrom(
+        _stableCoin.transferFrom(
             msg.sender,
             address(this),
             _amount
@@ -489,7 +488,7 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
         orders[_orderId].currentState = State.OwnerApproved;
         orders[_orderId].equityTokenOwner = msg.sender;
         orders[_orderId].equityTokenAmount = _amount;
-        IERC20Upgradeable(orders[_orderId].tokenAddress).safeTransferFrom(
+        IERC20Upgradeable(orders[_orderId].tokenAddress).transferFrom(
             msg.sender,
             address(this),
             _amount

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["dom", "esnext"],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "strict": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": "./"
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "include": ["tests", "./hardhat.config.ts", "./deploy"],
+  "exclude": ["node_modules"],
+  "files": ["hardhat.config.ts"]
+}
