@@ -29,14 +29,14 @@ contract EquityToken is
         _;
     }
 
-    function initialize(string memory _name, string memory _symbol) public initializer {
+    function initialize(string memory _name, string memory _symbol, address owner) public initializer {
         __ERC20_init(_name, _symbol);
         __ERC20Permit_init(_name);
         __ERC20Pausable_init();
         __AccessControl_init();
 
-        _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
-        _grantRole(OWNER_ROLE, _msgSender());
+        _grantRole(DEFAULT_ADMIN_ROLE, owner);
+        _grantRole(OWNER_ROLE, owner);
         _grantRole(MINTER_ROLE, _msgSender());
     }
 
