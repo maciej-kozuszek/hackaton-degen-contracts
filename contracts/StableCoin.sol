@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
-contract StableCoin is ERC20Permit {
-    constructor() ERC20("Test Stable Coin", "TSC") ERC20Permit("Test Stable Coin") {
 
+contract StableCoin is ERC20Permit {
+    constructor() ERC20("TestStableCoin", "TSC") ERC20Permit("TestStableCoin") {
         _mint(msg.sender, 10_000_000 * 10 ** decimals());
     }
 
