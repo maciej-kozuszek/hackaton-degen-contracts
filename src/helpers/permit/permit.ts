@@ -3,7 +3,7 @@ import { hexToUtf8 } from './lib'
 
 const MAX_INT = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 
-interface PermitMessage {
+export interface PermitMessage {
     holder: string
     spender: string
     nonce: number
@@ -11,7 +11,7 @@ interface PermitMessage {
     allowed?: boolean
 }
 
-interface ERC2612PermitMessage {
+export interface ERC2612PermitMessage {
     owner: string
     spender: string
     value: number | string
@@ -19,14 +19,14 @@ interface ERC2612PermitMessage {
     deadline: number | string
 }
 
-interface Domain {
+export interface Domain {
     name: string
     version: string
     chainId: number
     verifyingContract: string
 }
 
-const EIP712Domain = [
+export const EIP712Domain = [
     { name: 'name', type: 'string' },
     { name: 'version', type: 'string' },
     { name: 'chainId', type: 'uint256' },
