@@ -1,0 +1,15 @@
+node_modules
+artifacts
+cache
+coverage*
+gasReporterOutput.json
+dist
+typechain
+results
+templates
+.github
+deployments
+deploymentManager
+mosaico-contracts-typechain
+.vscode
+README.md

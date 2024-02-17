@@ -20,7 +20,16 @@
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   },
-  "include": ["config", "tests", "./hardhat.config.ts", "./deploy"],
-  "exclude": ["node_modules"],
+  "include": [
+    "./src",
+    "./config",
+    "./tests",
+    "./scripts",
+    "./typechain",
+    "./typechain-types",
+    "./deploy",
+    "./shared"
+  ],
+  "exclude": ["/node_modules", "**/*.spec.ts", "./test"],
   "files": ["hardhat.config.ts"]
 }

@@ -1,8 +1,27 @@
 {
+  "name": "sira-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
   "scripts": {
-    "build": "yarn clean; yarn hardhat compile",
+    "compile": "yarn clean; yarn hardhat compile",
     "clean": "rm -rf ./cache; rm -rf ./dist; rm -rf ./artifacts; rm -rf ./typechain;",
     "deploy:local": "yarn hardhat deploy --network hardhat",
+    "export-contract-abi": "hardhat export-abi --no-compile",
+    "export-deployments-mumbai": "npx hardhat --network polygon-mumbai run scripts/build/export-deployments.ts",
+    "generate-index": "ts-node scripts/build/generate-index.ts",
+    "generate-exported-abi-index": "ts-node scripts/build/generate-exported-abi-index.ts",
+    "generate-contract-abi": "yarn export-contract-abi && yarn generate-exported-abi-index",
+    "export-deployments": "yarn export-deployments-mumbai",
+    "prebuild": "yarn compile && yarn generate-contract-abi && yarn generate-index && yarn export-deployments",
+    "build": "tsc --project tsconfig.build.json",
     "deploy:test": "yarn hardhat deploy --network polygon-testnet"
   },
   "devDependencies": {
@@ -25,6 +44,10 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@openzeppelin/contracts-upgradeable": "^4.8.3"
+    "@openzeppelin/contracts-upgradeable": "^4.8.3",
+    "@types/utf8": "^3.0.3",
+    "dotenv": "^16.4.4",
+    "hardhat-abi-exporter": "^2.10.1",
+    "utf-8": "^2.0.0"
   }
 }

@@ -6,10 +6,13 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 import "./IAllowedList.sol";
 
-contract EquityToken is ERC20Upgradeable, OwnableUpgradeable, PausableUpgradeable 
-{
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract EquityToken is ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeable, PausableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
     CountersUpgradeable.Counter private _tokenIds;
     string public baseURI;
@@ -34,6 +37,7 @@ contract EquityToken is ERC20Upgradeable, OwnableUpgradeable, PausableUpgradeabl
     ) public initializer {
         __Ownable_init();
         __ERC20_init(_name, _symbol);
+        __ERC20Permit_init(_name);
         __ERC20Pausable_init();
         baseURI = _baseURI;
         allowedList = _iAllowedList;
@@ -61,28 +65,25 @@ contract EquityToken is ERC20Upgradeable, OwnableUpgradeable, PausableUpgradeabl
     }
 
     function checkAllowedList(address _address) external view returns (bool) {
-
         return allowedList.checkAllowedList(_address);
     }
 
     function _isInAllowedList(address _address) internal view {
-
-        require(allowedList.checkAllowedList(_address),"EquityToken: address is not on allowed list");
+        require(allowedList.checkAllowedList(_address), "EquityToken: address is not on allowed list");
     }
-    
-   function __ERC20Pausable_init() internal onlyInitializing {
+
+    function __ERC20Pausable_init() internal onlyInitializing {
         __Pausable_init_unchained();
     }
 
-    function __ERC20Pausable_init_unchained() internal onlyInitializing {
-    }
+    function __ERC20Pausable_init_unchained() internal onlyInitializing {}
 
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual override {
         super._beforeTokenTransfer(from, to, amount);
 
-        require(allowedList.checkAllowedList(to),"EquityToken: address is not on allowed list");
+        require(allowedList.checkAllowedList(to), "EquityToken: address is not on allowed list");
         require(!paused(), "EquityToken: token transfer while paused");
     }
-    uint256[50] private __gap;
 
+    uint256[50] private __gap;
 }
