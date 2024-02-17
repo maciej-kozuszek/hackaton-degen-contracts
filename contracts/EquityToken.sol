@@ -4,13 +4,14 @@ pragma solidity ^0.8.18;
 import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import {ERC20PermitUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
+import {ERC20Upgradeable, ERC20PermitUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 import {IEquityToken} from "./interfaces/IEquityToken.sol";
 import {Whitelist} from "./Whitelist.sol";
 
 contract EquityToken is
     IEquityToken,
     Initializable,
+    ERC20Upgradeable,
     ERC20PermitUpgradeable,
     AccessControlUpgradeable,
     PausableUpgradeable,
@@ -29,7 +30,9 @@ contract EquityToken is
         _;
     }
 
-    function initialize(string memory _name, string memory _symbol) public initializer {
+    function initialize() public initializer {
+        string memory _name = "EquityToken";
+        string memory _symbol = "EQT";
         __ERC20_init(_name, _symbol);
         __ERC20Permit_init(_name);
         __ERC20Pausable_init();
