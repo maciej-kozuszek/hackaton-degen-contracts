@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import {ERC20Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import {ERC20PermitUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 
-contract Finisher {
+contract Finalizer {
     /**
      * @dev For `try-catch` see docs {https://docs.openzeppelin.com/contracts/5.x/api/token/erc20#security_considerations}
      * @param equityToken arg
@@ -25,7 +25,7 @@ contract Finisher {
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) public returns (bool success) {
+    ) external returns (bool success) {
         try ERC20PermitUpgradeable(equityToken).permit(tokenOwner, address(this), amount, deadline, v, r, s) {
             transferEquityToken(equityToken, tokenOwner, to, amount);
             return (true);
