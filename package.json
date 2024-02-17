@@ -1,8 +1,20 @@
 {
+  "name": "sira-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
   "scripts": {
     "build:contracts": "yarn clean; yarn hardhat compile",
     "clean": "rm -rf ./cache; rm -rf ./dist; rm -rf ./artifacts; rm -rf ./typechain;",
-    "deploy:local": "yarn hardhat deploy --network hardhat"
+    "deploy:local": "yarn hardhat deploy --network hardhat",
+    "build": "tsc --project tsconfig.build.json"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.6",
@@ -25,6 +37,8 @@
   "dependencies": {
     "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "@types/utf8": "^3.0.3",
+    "dotenv": "^16.4.4",
+    "hardhat-abi-exporter": "^2.10.1",
     "utf-8": "^2.0.0"
   }
 }

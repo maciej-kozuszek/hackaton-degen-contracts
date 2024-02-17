@@ -1,0 +1,47 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TAGS = exports.ENTRY_POINT_ALCHEMY_ADDRESS = exports.ENTRY_POINT_ADDRESSES = exports.KNOWN_NETWORK = exports.CHAIN_IDS = exports.CHAIN_NAMES = exports.KNOWN_ACCOUNT = void 0;
+var KNOWN_ACCOUNT;
+(function (KNOWN_ACCOUNT) {
+    KNOWN_ACCOUNT["DEPLOYER"] = "deployer";
+    KNOWN_ACCOUNT["SIGNER"] = "signer";
+})(KNOWN_ACCOUNT || (exports.KNOWN_ACCOUNT = KNOWN_ACCOUNT = {}));
+var CHAIN_NAMES;
+(function (CHAIN_NAMES) {
+    CHAIN_NAMES["ARBITRUM_MAINNET"] = "arbitrum-mainnet";
+    CHAIN_NAMES["AVALANCHE"] = "avalanche";
+    CHAIN_NAMES["GANACHE"] = "ganache";
+    CHAIN_NAMES["HARDHAT"] = "hardhat";
+    CHAIN_NAMES["ETHEREUM_MAINNET"] = "mainnet";
+    CHAIN_NAMES["ETHEREUM_SEPOLIA"] = "sepolia";
+    CHAIN_NAMES["POLYGON_MAINNET"] = "polygon-mainnet";
+    CHAIN_NAMES["POLYGON_MUMBAI"] = "polygon-mumbai";
+})(CHAIN_NAMES || (exports.CHAIN_NAMES = CHAIN_NAMES = {}));
+exports.CHAIN_IDS = {
+    [CHAIN_NAMES.ARBITRUM_MAINNET]: 42161,
+    [CHAIN_NAMES.AVALANCHE]: 43114,
+    [CHAIN_NAMES.GANACHE]: 1337,
+    [CHAIN_NAMES.HARDHAT]: 31337,
+    [CHAIN_NAMES.ETHEREUM_MAINNET]: 1,
+    [CHAIN_NAMES.POLYGON_MAINNET]: 137,
+    [CHAIN_NAMES.POLYGON_MUMBAI]: 80001,
+    [CHAIN_NAMES.ETHEREUM_SEPOLIA]: 11155111,
+};
+var KNOWN_NETWORK;
+(function (KNOWN_NETWORK) {
+    KNOWN_NETWORK["ETHEREUM_SEPOLIA"] = "sepolia";
+    KNOWN_NETWORK["POLYGON_MUMBAI"] = "polygon-mumbai";
+})(KNOWN_NETWORK || (exports.KNOWN_NETWORK = KNOWN_NETWORK = {}));
+exports.ENTRY_POINT_ADDRESSES = {
+    [CHAIN_NAMES.POLYGON_MUMBAI]: "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+};
+exports.ENTRY_POINT_ALCHEMY_ADDRESS = "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789";
+var TAGS;
+(function (TAGS) {
+    TAGS["FULL"] = "FULL";
+    TAGS["TEST"] = "TEST";
+    TAGS["ACCOUNT_FACTORY"] = "ACCOUNT_FACTORY";
+    TAGS["ACCOUNT"] = "ACCOUNT";
+    TAGS["PAYMASTER"] = "PAYMASTER";
+})(TAGS || (exports.TAGS = TAGS = {}));
+//# sourceMappingURL=constants.js.map
