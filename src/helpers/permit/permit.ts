@@ -1,14 +1,26 @@
 import { getChainId, call, signData, RSV } from './rpc'
 import { hexToUtf8 } from './lib'
+import { BigNumber } from 'ethers'
 
 const MAX_INT = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 
-export interface PermitMessage {
-    holder: string
-    spender: string
-    nonce: number
-    expiry: number | string
-    allowed?: boolean
+interface MessageTypeProperty {
+    name: string
+    type: string
+}
+type SignatureTypes = Record<string, MessageTypeProperty[]>
+export interface CreateOrderMessage {
+    equityToken: string
+    equityTokenOwner: string
+    equityTokenAmount: string
+    pricePerToken: string
+}
+
+export interface ApproveOrderMessage {
+    token: string
+    tokenOwner: string
+    pricePerToken: string
+    tokenAmount: string
 }
 
 export interface ERC2612PermitMessage {
@@ -26,51 +38,86 @@ export interface Domain {
     verifyingContract: string
 }
 
-export const EIP712Domain = [
-    { name: 'name', type: 'string' },
-    { name: 'version', type: 'string' },
-    { name: 'chainId', type: 'uint256' },
-    { name: 'verifyingContract', type: 'address' },
-]
-
-const createTypedData = (message: PermitMessage, domain: Domain) => {
-    const typedData = {
-        types: {
-            EIP712Domain,
-            Permit: [
-                { name: 'holder', type: 'address' },
-                { name: 'spender', type: 'address' },
-                { name: 'nonce', type: 'uint256' },
-                { name: 'expiry', type: 'uint256' },
-                { name: 'allowed', type: 'bool' },
-            ],
-        },
-        primaryType: 'Permit',
-        domain,
-        message,
-    }
-
-    return typedData
+export interface SignatureTypedData {
+    domain: Domain
+    types: SignatureTypes
+    primaryType: string
+    message: Record<string, unknown>
 }
 
-const createTypedERC2612Data = (message: ERC2612PermitMessage, domain: Domain) => {
-    const typedData = {
-        types: {
-            EIP712Domain,
-            Permit: [
-                { name: 'owner', type: 'address' },
-                { name: 'spender', type: 'address' },
-                { name: 'value', type: 'uint256' },
-                { name: 'nonce', type: 'uint256' },
-                { name: 'deadline', type: 'uint256' },
-            ],
-        },
-        primaryType: 'Permit',
-        domain,
-        message,
-    }
+export const signatureTypes: SignatureTypes = {
+    EIP712Domain: [
+        { name: 'name', type: 'string' },
+        { name: 'version', type: 'string' },
+        { name: 'chainId', type: 'uint256' },
+        { name: 'verifyingContract', type: 'address' },
+    ],
+    CreateOrderPermitData: [
+        { name: 'equityToken', type: 'address' },
+        { name: 'equityTokenOwner', type: 'address' },
+        { name: 'equityTokenAmount', type: 'uint256' },
+        { name: 'pricePerToken', type: 'uint256' },
+        { name: 'owner', type: 'address' },
+        { name: 'spender', type: 'address' },
+        { name: 'value', type: 'uint256' },
+        { name: 'nonce', type: 'uint256' },
+        { name: 'deadline', type: 'uint256' },
+    ],
+    ApproveOrderPermitData: [
+        { name: 'owner', type: 'address' },
+        { name: 'spender', type: 'address' },
+        { name: 'value', type: 'uint256' },
+        { name: 'nonce', type: 'uint256' },
+        { name: 'deadline', type: 'uint256' },
+    ],
+}
 
-    return typedData
+export function getCreateOrderTypedData(order: CreateOrderMessage, permit: ERC2612PermitMessage, domain: Domain): SignatureTypedData {
+    return {
+        domain: {
+            name: 'TestStableCoin',
+            version: '1',
+            chainId: domain.chainId,
+            verifyingContract: domain.verifyingContract,
+        },
+        types: {
+            CreateOrderData: signatureTypes.CreateOrderPermitData,
+        },
+        primaryType: 'CreateOrderPermitData',
+        message: {
+            equityToken: order.equityToken,
+            equityTokenOwner: order.equityTokenOwner,
+            pricePerToken: order.pricePerToken,
+            equityTokenAmount: order.equityTokenAmount,
+            owner: permit.owner,
+            spender: permit.spender,
+            value: permit.value,
+            nonce: permit.nonce,
+            deadline: permit.deadline,
+        },
+    }
+}
+
+export function getApproveOrderTypedData(data: ApproveOrderMessage, permit: ERC2612PermitMessage, domain: Domain): SignatureTypedData {
+    return {
+        domain: {
+            name: 'EquityToken',
+            version: '1',
+            chainId: domain.chainId,
+            verifyingContract: domain.verifyingContract,
+        },
+        types: {
+            CreateOrderData: signatureTypes.ApproveOrderPermitData,
+        },
+        primaryType: 'ApproveOrderPermitData',
+        message: {
+            owner: permit.owner,
+            spender: permit.spender,
+            value: permit.value,
+            nonce: permit.nonce,
+            deadline: permit.deadline,
+        },
+    }
 }
 
 const NONCES_FN = '0x7ecebe00'
@@ -93,25 +140,44 @@ const getDomain = async (provider: any, token: string | Domain): Promise<Domain>
     return domain
 }
 
-export const signPermit = async (provider: any, token: string | Domain, holder: string, spender: string, expiry?: number, nonce?: number): Promise<PermitMessage & RSV> => {
+export const signPermitCreateOrder = async (
+    provider: any,
+    equityToken: string,
+    equityTokenOwner: string,
+    pricePerToken: BigNumber,
+    equityTokenAmount: BigNumber,
+    token: string | Domain,
+    owner: string,
+    spender: string,
+    value: string | number = MAX_INT,
+    deadline?: number,
+    nonce?: number,
+): Promise<ERC2612PermitMessage & RSV> => {
     const tokenAddress = (token as Domain).verifyingContract || (token as string)
 
-    const message: PermitMessage = {
-        holder,
+    const orderMessage: CreateOrderMessage = {
+        equityToken: equityToken,
+        equityTokenOwner: equityTokenOwner,
+        equityTokenAmount: equityTokenAmount.toHexString(),
+        pricePerToken: pricePerToken.toHexString(),
+    }
+
+    const permitMessage: ERC2612PermitMessage = {
+        owner,
         spender,
-        nonce: nonce === undefined ? await call(provider, tokenAddress, `${NONCES_FN}${zeros(24)}${holder.substr(2)}`) : nonce,
-        expiry: expiry || MAX_INT,
-        allowed: true,
+        value,
+        nonce: nonce === undefined ? await call(provider, tokenAddress, `${NONCES_FN}${zeros(24)}${owner.substr(2)}`) : nonce,
+        deadline: deadline || MAX_INT,
     }
 
     const domain = await getDomain(provider, token)
-    const typedData = createTypedData(message, domain)
-    const sig = await signData(provider, holder, typedData)
+    const typedData = getCreateOrderTypedData(orderMessage, permitMessage, domain)
+    const sig = await signData(provider, owner, typedData)
 
-    return { ...sig, ...message }
+    return { ...sig, ...permitMessage, ...orderMessage }
 }
 
-export const signERC2612Permit = async (
+export const signPermitApproveOrder = async (
     provider: any,
     token: string | Domain,
     owner: string,
@@ -122,7 +188,14 @@ export const signERC2612Permit = async (
 ): Promise<ERC2612PermitMessage & RSV> => {
     const tokenAddress = (token as Domain).verifyingContract || (token as string)
 
-    const message: ERC2612PermitMessage = {
+    const approveMessage: ApproveOrderMessage = {
+        token: '0x',
+        tokenOwner: '0x',
+        tokenAmount: '0',
+        pricePerToken: '0',
+    }
+
+    const permitMessage: ERC2612PermitMessage = {
         owner,
         spender,
         value,
@@ -131,8 +204,8 @@ export const signERC2612Permit = async (
     }
 
     const domain = await getDomain(provider, token)
-    const typedData = createTypedERC2612Data(message, domain)
+    const typedData = getApproveOrderTypedData(approveMessage, permitMessage, domain)
     const sig = await signData(provider, owner, typedData)
 
-    return { ...sig, ...message }
+    return { ...sig, ...permitMessage, ...approveMessage }
 }
