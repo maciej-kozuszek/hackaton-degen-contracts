@@ -11,18 +11,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const _equityName = 'EquityToken'
     const _tokName = 'TOK'
 
-    const equityToken = await deploy(_equityName, {
-        from: deployer,
-        skipIfAlreadyDeployed: false,
-        log: true,
-    })
-
-    const equityToken2 = await deploy(_equityName, {
-        from: deployer,
-        skipIfAlreadyDeployed: false,
-        log: true,
-    })
-
     const lightAccFactory = await deploy('LightAccountFactory', {
         from: deployer,
         log: true,
