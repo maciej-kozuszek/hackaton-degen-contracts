@@ -8,7 +8,7 @@ import '@nomiclabs/hardhat-ethers'
 import '@typechain/hardhat'
 import 'hardhat-abi-exporter'
 import 'hardhat-deploy'
-import { CHAIN_IDS, CHAIN_NAMES, KNOWN_ACCOUNT, KNOWN_NETWORK } from './config/constants'
+import { CHAIN_IDS, CHAIN_NAMES, KNOWN_NETWORK } from './config/constants'
 
 dotenv.config()
 const config: HardhatUserConfig = {
@@ -41,15 +41,8 @@ const config: HardhatUserConfig = {
         },
     },
     namedAccounts: {
-        [KNOWN_ACCOUNT.DEPLOYER]: {
+        deployer: {
             default: 0,
-            [KNOWN_NETWORK.ETHEREUM_SEPOLIA]: `${process.env.DEPLOYER_ADDRESS}`,
-            [KNOWN_NETWORK.POLYGON_MUMBAI]: `${process.env.DEPLOYER_ADDRESS}`,
-        },
-        [KNOWN_ACCOUNT.SIGNER]: {
-            default: 1,
-            [KNOWN_NETWORK.ETHEREUM_SEPOLIA]: `${process.env.SIGNER_ADDRESS}`,
-            [KNOWN_NETWORK.POLYGON_MUMBAI]: `${process.env.SIGNER_ADDRESS}`,
         },
     },
     abiExporter: {

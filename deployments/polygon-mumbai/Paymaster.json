@@ -1,0 +1,653 @@
+{
+  "address": "0x952F672084621d4480b057DA0010D8e1a33B3858",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IEntryPoint",
+          "name": "_entryPoint",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "SenderNotExisted",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "SenderNotWhitelisted",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "onBehlafOf",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "gas",
+          "type": "uint256"
+        }
+      ],
+      "name": "Accepted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "WhitelistedSenderAddressAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "WhitelistedSenderAddressRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "WhitelistedTargetAddressAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "WhitelistedTargetAddressRemoved",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "unstakeDelaySec",
+          "type": "uint32"
+        }
+      ],
+      "name": "addStake",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "entryPoint",
+      "outputs": [
+        {
+          "internalType": "contract IEntryPoint",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getDeposit",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "isWhitelistedSender",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        }
+      ],
+      "name": "isWhitelistedTarget",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum IPaymaster.PostOpMode",
+          "name": "mode",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bytes",
+          "name": "context",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "actualGasCost",
+          "type": "uint256"
+        }
+      ],
+      "name": "postOp",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "senderWhitelist",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IEntryPoint",
+          "name": "_entryPoint",
+          "type": "address"
+        }
+      ],
+      "name": "setEntryPoint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "targetWhitelist",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "unlockStake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nonce",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "initCode",
+              "type": "bytes"
+            },
+            {
+              "internalType": "bytes",
+              "name": "callData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "uint256",
+              "name": "callGasLimit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "verificationGasLimit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "preVerificationGas",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxFeePerGas",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxPriorityFeePerGas",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "paymasterAndData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "bytes",
+              "name": "signature",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct UserOperation",
+          "name": "userOp",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "validatePaymasterUserOp",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "context",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "validationData",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "whitelistSender",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        }
+      ],
+      "name": "whitelistTarget",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "withdrawAddress",
+          "type": "address"
+        }
+      ],
+      "name": "withdrawStake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "withdrawAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawTo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x6a6f0ac0c4f60f2cfa51cd18bce4bcd1aae63c79462961f3ff1faa745a9a90a5",
+  "receipt": {
+    "to": null,
+    "from": "0x1639805FBbC9c5039bc56BA516f396B73b480a23",
+    "contractAddress": "0x952F672084621d4480b057DA0010D8e1a33B3858",
+    "transactionIndex": 23,
+    "gasUsed": "1381801",
+    "logsBloom": "0x04000000000000400000000000000000000000000000000000800000020000000000000002000000000000000000000000008000000000000000000000000000000000000000000000000000000000c00001000000000000000100000000000000000000020000000000000000000800000000000000200080000000000000400000001000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000010000000000000000004000000000000000000001000000000000000000000000000000100000000020000000000000000080000000000000000000000000000000000000000000100000",
+    "blockHash": "0x1c58f07676cdceca1d424cbe32b7200918bcc5e7661bf024b80bb4c571ad7ef6",
+    "transactionHash": "0x6a6f0ac0c4f60f2cfa51cd18bce4bcd1aae63c79462961f3ff1faa745a9a90a5",
+    "logs": [
+      {
+        "transactionIndex": 23,
+        "blockNumber": 46029504,
+        "transactionHash": "0x6a6f0ac0c4f60f2cfa51cd18bce4bcd1aae63c79462961f3ff1faa745a9a90a5",
+        "address": "0x952F672084621d4480b057DA0010D8e1a33B3858",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x0000000000000000000000001639805fbbc9c5039bc56ba516f396b73b480a23"
+        ],
+        "data": "0x",
+        "logIndex": 66,
+        "blockHash": "0x1c58f07676cdceca1d424cbe32b7200918bcc5e7661bf024b80bb4c571ad7ef6"
+      },
+      {
+        "transactionIndex": 23,
+        "blockNumber": 46029504,
+        "transactionHash": "0x6a6f0ac0c4f60f2cfa51cd18bce4bcd1aae63c79462961f3ff1faa745a9a90a5",
+        "address": "0x0000000000000000000000000000000000001010",
+        "topics": [
+          "0x4dfe1bbbcf077ddc3e01291eea2d5c70c2b422b415d95645b9adcfd678cb1d63",
+          "0x0000000000000000000000000000000000000000000000000000000000001010",
+          "0x0000000000000000000000001639805fbbc9c5039bc56ba516f396b73b480a23",
+          "0x0000000000000000000000005082f249cdb2f2c1ee035e4f423c46ea2dab3ab1"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000000075d1c6ca207000000000000000000000000000000000000000000000000000bfac2a204da62ca00000000000000000000000000000000000000000000065ea6a02fd706cda5750000000000000000000000000000000000000000000000000bf3658598385bca00000000000000000000000000000000000000000000065ea6a78cf3736fac75",
+        "logIndex": 67,
+        "blockHash": "0x1c58f07676cdceca1d424cbe32b7200918bcc5e7661bf024b80bb4c571ad7ef6"
+      }
+    ],
+    "blockNumber": 46029504,
+    "cumulativeGasUsed": "3676408",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "f7a94bd739f661e3876fd2b275b3baa4",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IEntryPoint\",\"name\":\"_entryPoint\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"SenderNotExisted\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"SenderNotWhitelisted\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"onBehlafOf\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"Accepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"WhitelistedSenderAddressAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"WhitelistedSenderAddressRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"WhitelistedTargetAddressAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"WhitelistedTargetAddressRemoved\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"unstakeDelaySec\",\"type\":\"uint32\"}],\"name\":\"addStake\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"entryPoint\",\"outputs\":[{\"internalType\":\"contract IEntryPoint\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDeposit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"isWhitelistedSender\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"}],\"name\":\"isWhitelistedTarget\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"enum IPaymaster.PostOpMode\",\"name\":\"mode\",\"type\":\"uint8\"},{\"internalType\":\"bytes\",\"name\":\"context\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"actualGasCost\",\"type\":\"uint256\"}],\"name\":\"postOp\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"senderWhitelist\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IEntryPoint\",\"name\":\"_entryPoint\",\"type\":\"address\"}],\"name\":\"setEntryPoint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"targetWhitelist\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unlockStake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"initCode\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"callData\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"callGasLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"verificationGasLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"preVerificationGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxFeePerGas\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxPriorityFeePerGas\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"paymasterAndData\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"}],\"internalType\":\"struct UserOperation\",\"name\":\"userOp\",\"type\":\"tuple\"},{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"validatePaymasterUserOp\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"context\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"validationData\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"whitelistSender\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"}],\"name\":\"whitelistTarget\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"withdrawAddress\",\"type\":\"address\"}],\"name\":\"withdrawStake\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"withdrawAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdrawTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"addStake(uint32)\":{\"params\":{\"unstakeDelaySec\":\"- the unstake delay for this paymaster. Can only be increased.\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"postOp(uint8,bytes,uint256)\":{\"params\":{\"actualGasCost\":\"- actual gas used so far (without this postOp call).\",\"context\":\"- the context value returned by validatePaymasterUserOp\",\"mode\":\"enum with the following options:      opSucceeded - user operation succeeded.      opReverted  - user op reverted. still has to pay for gas.      postOpReverted - user op succeeded, but caused postOp (in mode=opSucceeded) to revert.                       Now this is the 2nd call, after user's op was deliberately reverted.\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"withdrawStake(address)\":{\"params\":{\"withdrawAddress\":\"the address to send withdrawn value.\"}},\"withdrawTo(address,uint256)\":{\"params\":{\"amount\":\"to withdraw\",\"withdrawAddress\":\"target to send to\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"addStake(uint32)\":{\"notice\":\"add stake for this paymaster. This method can also carry eth value to add to the current stake.\"},\"deposit()\":{\"notice\":\"add a deposit for this paymaster, used for paying for transaction fees\"},\"getDeposit()\":{\"notice\":\"return current paymaster's deposit on the entryPoint.\"},\"postOp(uint8,bytes,uint256)\":{\"notice\":\"post-operation handler. Must verify sender is the entryPoint\"},\"unlockStake()\":{\"notice\":\"unlock the stake, in order to withdraw it. The paymaster can't serve requests once unlocked, until it calls addStake again\"},\"withdrawStake(address)\":{\"notice\":\"withdraw the entire paymaster's stake. stake must be unlocked first (and then wait for the unstakeDelay to be over)\"},\"withdrawTo(address,uint256)\":{\"notice\":\"withdraw value from the deposit\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/accountAbstraction/Paymaster.sol\":\"Paymaster\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.4) (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0xa92e4fa126feb6907daa0513ddd816b2eb91f30a808de54f63c17d0e162c3439\",\"license\":\"MIT\"},\"contracts/accountAbstraction/Paymaster.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\n/* solhint-disable avoid-low-level-calls */\\n/* solhint-disable no-inline-assembly */\\n/* solhint-disable reason-string */\\n\\nimport \\\"./core/BasePaymaster.sol\\\";\\nimport \\\"./interfaces/IWhitelistPaymaster.sol\\\";\\n\\n\\ncontract Paymaster is IWhitelistPaymaster, BasePaymaster {\\n    mapping(address => bool) public senderWhitelist;\\n    mapping(address => bool) public targetWhitelist;\\n\\n    error SenderNotExisted();\\n    error SenderNotWhitelisted(address);\\n\\n    constructor(IEntryPoint _entryPoint) BasePaymaster(_entryPoint) { }\\n\\n    function whitelistSender(address sender) external override onlyOwner {\\n        senderWhitelist[sender] = true;\\n        emit WhitelistedSenderAddressAdded(sender);\\n    }\\n\\n    function whitelistTarget(address target) external override onlyOwner {\\n        targetWhitelist[target] = true;\\n        emit WhitelistedTargetAddressAdded(target);\\n    }\\n\\n    function isWhitelistedTarget(address target) external view override returns (bool) {\\n        return targetWhitelist[target];\\n    }\\n\\n    function isWhitelistedSender(address sender) external view override returns (bool) {\\n        return senderWhitelist[sender];\\n    }\\n\\n    function validatePaymasterUserOp(UserOperation calldata userOp, bytes32 /*userOpHash*/, uint256 /*requiredPreFund*/) external view override returns (bytes memory context, uint256 validationData) {\\n        if (userOp.sender.code.length == 0) {\\n            revert SenderNotExisted();\\n        }\\n\\n        if (!senderWhitelist[userOp.sender]) {\\n            revert SenderNotWhitelisted(userOp.sender);\\n        }\\n\\n        return (new bytes(0), 0);\\n    }\\n}\\n\",\"keccak256\":\"0x05bf1d30a4a2ce8a3820cdd47d7990a9dec4f3f44064296d625eb0a639e8d058\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/core/BasePaymaster.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\n\\n/* solhint-disable reason-string */\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"../interfaces/IPaymaster.sol\\\";\\nimport \\\"../interfaces/IEntryPoint.sol\\\";\\n\\n/**\\n * Helper class for creating a paymaster.\\n * provides helper methods for staking.\\n * validates that the postOp is called only by the entryPoint\\n */\\nabstract contract BasePaymaster is IPaymaster, Ownable {\\n\\n    IEntryPoint public entryPoint;\\n\\n    constructor(IEntryPoint _entryPoint) {\\n        setEntryPoint(_entryPoint);\\n    }\\n\\n    function setEntryPoint(IEntryPoint _entryPoint) public onlyOwner {\\n        entryPoint = _entryPoint;\\n    }\\n\\n    function validatePaymasterUserOp(UserOperation calldata userOp, bytes32 userOpHash, uint256 maxCost)\\n    external virtual override returns (bytes memory context, uint256 deadline);\\n\\n    function postOp(PostOpMode mode, bytes calldata context, uint256 actualGasCost) external override {\\n        _requireFromEntryPoint();\\n        _postOp(mode, context, actualGasCost);\\n    }\\n\\n    /**\\n     * post-operation handler.\\n     * (verified to be called only through the entryPoint)\\n     * @dev if subclass returns a non-empty context from validatePaymasterUserOp, it must also implement this method.\\n     * @param mode enum with the following options:\\n     *      opSucceeded - user operation succeeded.\\n     *      opReverted  - user op reverted. still has to pay for gas.\\n     *      postOpReverted - user op succeeded, but caused postOp (in mode=opSucceeded) to revert.\\n     *                       Now this is the 2nd call, after user's op was deliberately reverted.\\n     * @param context - the context value returned by validatePaymasterUserOp\\n     * @param actualGasCost - actual gas used so far (without this postOp call).\\n     */\\n    function _postOp(PostOpMode mode, bytes calldata context, uint256 actualGasCost) internal virtual {\\n\\n        (mode,context,actualGasCost); // unused params\\n        // subclass must override this method if validatePaymasterUserOp returns a context\\n        revert(\\\"must override\\\");\\n    }\\n\\n    /**\\n     * add a deposit for this paymaster, used for paying for transaction fees\\n     */\\n    function deposit() public payable {\\n        entryPoint.depositTo{value : msg.value}(address(this));\\n    }\\n\\n    /**\\n     * withdraw value from the deposit\\n     * @param withdrawAddress target to send to\\n     * @param amount to withdraw\\n     */\\n    function withdrawTo(address payable withdrawAddress, uint256 amount) public onlyOwner {\\n        entryPoint.withdrawTo(withdrawAddress, amount);\\n    }\\n    /**\\n     * add stake for this paymaster.\\n     * This method can also carry eth value to add to the current stake.\\n     * @param unstakeDelaySec - the unstake delay for this paymaster. Can only be increased.\\n     */\\n    function addStake(uint32 unstakeDelaySec) external payable onlyOwner {\\n        entryPoint.addStake{value : msg.value}(unstakeDelaySec);\\n    }\\n\\n    /**\\n     * return current paymaster's deposit on the entryPoint.\\n     */\\n    function getDeposit() public view returns (uint256) {\\n        return entryPoint.balanceOf(address(this));\\n    }\\n\\n    /**\\n     * unlock the stake, in order to withdraw it.\\n     * The paymaster can't serve requests once unlocked, until it calls addStake again\\n     */\\n    function unlockStake() external onlyOwner {\\n        entryPoint.unlockStake();\\n    }\\n\\n    /**\\n     * withdraw the entire paymaster's stake.\\n     * stake must be unlocked first (and then wait for the unstakeDelay to be over)\\n     * @param withdrawAddress the address to send withdrawn value.\\n     */\\n    function withdrawStake(address payable withdrawAddress) external onlyOwner {\\n        entryPoint.withdrawStake(withdrawAddress);\\n    }\\n\\n    /// validate the call is made from a valid entrypoint\\n    function _requireFromEntryPoint() internal virtual {\\n        require(msg.sender == address(entryPoint));\\n    }\\n}\\n\",\"keccak256\":\"0x89702db427de49815cd53bdae71053afafc903cff6af643312d2dcd098ea6165\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/interfaces/IAggregator.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\nimport \\\"./UserOperation.sol\\\";\\n\\n/**\\n * Aggregated Signatures validator.\\n */\\ninterface IAggregator {\\n\\n    /**\\n     * validate aggregated signature.\\n     * revert if the aggregated signature does not match the given list of operations.\\n     */\\n    function validateSignatures(UserOperation[] calldata userOps, bytes calldata signature) external view;\\n\\n    /**\\n     * validate signature of a single userOp\\n     * This method is should be called by bundler after EntryPoint.simulateValidation() returns (reverts) with ValidationResultWithAggregation\\n     * First it validates the signature over the userOp. Then it returns data to be used when creating the handleOps.\\n     * @param userOp the userOperation received from the user.\\n     * @return sigForUserOp the value to put into the signature field of the userOp when calling handleOps.\\n     *    (usually empty, unless account and aggregator support some kind of \\\"multisig\\\"\\n     */\\n    function validateUserOpSignature(UserOperation calldata userOp)\\n    external view returns (bytes memory sigForUserOp);\\n\\n    /**\\n     * aggregate multiple signatures into a single value.\\n     * This method is called off-chain to calculate the signature to pass with handleOps()\\n     * bundler MAY use optimized custom code perform this aggregation\\n     * @param userOps array of UserOperations to collect the signatures from.\\n     * @return aggregatedSignature the aggregated signature\\n     */\\n    function aggregateSignatures(UserOperation[] calldata userOps) external view returns (bytes memory aggregatedSignature);\\n}\\n\",\"keccak256\":\"0x30c9af854222af79194396a3d88d122852219bbf84ce35a559e3458ed29e91e7\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/interfaces/IEntryPoint.sol\":{\"content\":\"/**\\n ** Account-Abstraction (EIP-4337) singleton EntryPoint implementation.\\n ** Only one instance required on each chain.\\n **/\\n// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\n/* solhint-disable avoid-low-level-calls */\\n/* solhint-disable no-inline-assembly */\\n/* solhint-disable reason-string */\\n\\nimport \\\"./IStakeManager.sol\\\";\\nimport \\\"./IAggregator.sol\\\";\\n\\nimport \\\"./UserOperation.sol\\\";\\nimport \\\"./INonceManager.sol\\\";\\n\\ninterface IEntryPoint is IStakeManager, INonceManager {\\n\\n    /***\\n     * An event emitted after each successful request\\n     * @param userOpHash - unique identifier for the request (hash its entire content, except signature).\\n     * @param sender - the account that generates this request.\\n     * @param paymaster - if non-null, the paymaster that pays for this request.\\n     * @param nonce - the nonce value from the request.\\n     * @param success - true if the sender transaction succeeded, false if reverted.\\n     * @param actualGasCost - actual amount paid (by account or paymaster) for this UserOperation.\\n     * @param actualGasUsed - total gas used by this UserOperation (including preVerification, creation, validation and execution).\\n     */\\n    event UserOperationEvent(bytes32 indexed userOpHash, address indexed sender, address indexed paymaster, uint256 nonce, bool success, uint256 actualGasCost, uint256 actualGasUsed);\\n\\n    /**\\n     * account \\\"sender\\\" was deployed.\\n     * @param userOpHash the userOp that deployed this account. UserOperationEvent will follow.\\n     * @param sender the account that is deployed\\n     * @param factory the factory used to deploy this account (in the initCode)\\n     * @param paymaster the paymaster used by this UserOp\\n     */\\n    event AccountDeployed(bytes32 indexed userOpHash, address indexed sender, address factory, address paymaster);\\n\\n    /**\\n     * An event emitted if the UserOperation \\\"callData\\\" reverted with non-zero length\\n     * @param userOpHash the request unique identifier.\\n     * @param sender the sender of this request\\n     * @param nonce the nonce used in the request\\n     * @param revertReason - the return bytes from the (reverted) call to \\\"callData\\\".\\n     */\\n    event UserOperationRevertReason(bytes32 indexed userOpHash, address indexed sender, uint256 nonce, bytes revertReason);\\n\\n    /**\\n     * an event emitted by handleOps(), before starting the execution loop.\\n     * any event emitted before this event, is part of the validation.\\n     */\\n    event BeforeExecution();\\n\\n    /**\\n     * signature aggregator used by the following UserOperationEvents within this bundle.\\n     */\\n    event SignatureAggregatorChanged(address indexed aggregator);\\n\\n    /**\\n     * a custom revert error of handleOps, to identify the offending op.\\n     *  NOTE: if simulateValidation passes successfully, there should be no reason for handleOps to fail on it.\\n     *  @param opIndex - index into the array of ops to the failed one (in simulateValidation, this is always zero)\\n     *  @param reason - revert reason\\n     *      The string starts with a unique code \\\"AAmn\\\", where \\\"m\\\" is \\\"1\\\" for factory, \\\"2\\\" for account and \\\"3\\\" for paymaster issues,\\n     *      so a failure can be attributed to the correct entity.\\n     *   Should be caught in off-chain handleOps simulation and not happen on-chain.\\n     *   Useful for mitigating DoS attempts against batchers or for troubleshooting of factory/account/paymaster reverts.\\n     */\\n    error FailedOp(uint256 opIndex, string reason);\\n\\n    /**\\n     * error case when a signature aggregator fails to verify the aggregated signature it had created.\\n     */\\n    error SignatureValidationFailed(address aggregator);\\n\\n    /**\\n     * Successful result from simulateValidation.\\n     * @param returnInfo gas and time-range returned values\\n     * @param senderInfo stake information about the sender\\n     * @param factoryInfo stake information about the factory (if any)\\n     * @param paymasterInfo stake information about the paymaster (if any)\\n     */\\n    error ValidationResult(ReturnInfo returnInfo,\\n        StakeInfo senderInfo, StakeInfo factoryInfo, StakeInfo paymasterInfo);\\n\\n    /**\\n     * Successful result from simulateValidation, if the account returns a signature aggregator\\n     * @param returnInfo gas and time-range returned values\\n     * @param senderInfo stake information about the sender\\n     * @param factoryInfo stake information about the factory (if any)\\n     * @param paymasterInfo stake information about the paymaster (if any)\\n     * @param aggregatorInfo signature aggregation info (if the account requires signature aggregator)\\n     *      bundler MUST use it to verify the signature, or reject the UserOperation\\n     */\\n    error ValidationResultWithAggregation(ReturnInfo returnInfo,\\n        StakeInfo senderInfo, StakeInfo factoryInfo, StakeInfo paymasterInfo,\\n        AggregatorStakeInfo aggregatorInfo);\\n\\n    /**\\n     * return value of getSenderAddress\\n     */\\n    error SenderAddressResult(address sender);\\n\\n    /**\\n     * return value of simulateHandleOp\\n     */\\n    error ExecutionResult(uint256 preOpGas, uint256 paid, uint48 validAfter, uint48 validUntil, bool targetSuccess, bytes targetResult);\\n\\n    //UserOps handled, per aggregator\\n    struct UserOpsPerAggregator {\\n        UserOperation[] userOps;\\n\\n        // aggregator address\\n        IAggregator aggregator;\\n        // aggregated signature\\n        bytes signature;\\n    }\\n\\n    /**\\n     * Execute a batch of UserOperation.\\n     * no signature aggregator is used.\\n     * if any account requires an aggregator (that is, it returned an aggregator when\\n     * performing simulateValidation), then handleAggregatedOps() must be used instead.\\n     * @param ops the operations to execute\\n     * @param beneficiary the address to receive the fees\\n     */\\n    function handleOps(UserOperation[] calldata ops, address payable beneficiary) external;\\n\\n    /**\\n     * Execute a batch of UserOperation with Aggregators\\n     * @param opsPerAggregator the operations to execute, grouped by aggregator (or address(0) for no-aggregator accounts)\\n     * @param beneficiary the address to receive the fees\\n     */\\n    function handleAggregatedOps(\\n        UserOpsPerAggregator[] calldata opsPerAggregator,\\n        address payable beneficiary\\n    ) external;\\n\\n    /**\\n     * generate a request Id - unique identifier for this request.\\n     * the request ID is a hash over the content of the userOp (except the signature), the entrypoint and the chainid.\\n     */\\n    function getUserOpHash(UserOperation calldata userOp) external view returns (bytes32);\\n\\n    /**\\n     * Simulate a call to account.validateUserOp and paymaster.validatePaymasterUserOp.\\n     * @dev this method always revert. Successful result is ValidationResult error. other errors are failures.\\n     * @dev The node must also verify it doesn't use banned opcodes, and that it doesn't reference storage outside the account's data.\\n     * @param userOp the user operation to validate.\\n     */\\n    function simulateValidation(UserOperation calldata userOp) external;\\n\\n    /**\\n     * gas and return values during simulation\\n     * @param preOpGas the gas used for validation (including preValidationGas)\\n     * @param prefund the required prefund for this operation\\n     * @param sigFailed validateUserOp's (or paymaster's) signature check failed\\n     * @param validAfter - first timestamp this UserOp is valid (merging account and paymaster time-range)\\n     * @param validUntil - last timestamp this UserOp is valid (merging account and paymaster time-range)\\n     * @param paymasterContext returned by validatePaymasterUserOp (to be passed into postOp)\\n     */\\n    struct ReturnInfo {\\n        uint256 preOpGas;\\n        uint256 prefund;\\n        bool sigFailed;\\n        uint48 validAfter;\\n        uint48 validUntil;\\n        bytes paymasterContext;\\n    }\\n\\n    /**\\n     * returned aggregated signature info.\\n     * the aggregator returned by the account, and its current stake.\\n     */\\n    struct AggregatorStakeInfo {\\n        address aggregator;\\n        StakeInfo stakeInfo;\\n    }\\n\\n    /**\\n     * Get counterfactual sender address.\\n     *  Calculate the sender contract address that will be generated by the initCode and salt in the UserOperation.\\n     * this method always revert, and returns the address in SenderAddressResult error\\n     * @param initCode the constructor code to be passed into the UserOperation.\\n     */\\n    function getSenderAddress(bytes memory initCode) external;\\n\\n\\n    /**\\n     * simulate full execution of a UserOperation (including both validation and target execution)\\n     * this method will always revert with \\\"ExecutionResult\\\".\\n     * it performs full validation of the UserOperation, but ignores signature error.\\n     * an optional target address is called after the userop succeeds, and its value is returned\\n     * (before the entire call is reverted)\\n     * Note that in order to collect the the success/failure of the target call, it must be executed\\n     * with trace enabled to track the emitted events.\\n     * @param op the UserOperation to simulate\\n     * @param target if nonzero, a target address to call after userop simulation. If called, the targetSuccess and targetResult\\n     *        are set to the return from that call.\\n     * @param targetCallData callData to pass to target address\\n     */\\n    function simulateHandleOp(UserOperation calldata op, address target, bytes calldata targetCallData) external;\\n}\",\"keccak256\":\"0x047b592fb80873377bacb3deca4a754ba7f205ccd7701a82d1c6b31908fe41cd\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/interfaces/INonceManager.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\ninterface INonceManager {\\n\\n    /**\\n     * Return the next nonce for this sender.\\n     * Within a given key, the nonce values are sequenced (starting with zero, and incremented by one on each userop)\\n     * But UserOp with different keys can come with arbitrary order.\\n     *\\n     * @param sender the account address\\n     * @param key the high 192 bit of the nonce\\n     * @return nonce a full nonce to pass for next UserOp with this sender.\\n     */\\n    function getNonce(address sender, uint192 key)\\n    external view returns (uint256 nonce);\\n\\n    /**\\n     * Manually increment the nonce of the sender.\\n     * This method is exposed just for completeness..\\n     * Account does NOT need to call it, neither during validation, nor elsewhere,\\n     * as the EntryPoint will update the nonce regardless.\\n     * Possible use-case is call it with various keys to \\\"initialize\\\" their nonces to one, so that future\\n     * UserOperations will not pay extra for the first transaction with a given key.\\n     */\\n    function incrementNonce(uint192 key) external;\\n}\",\"keccak256\":\"0x765845e8c8fccce1128a82561f670138fa7bd05230b6bc5b94f0323c05b3b7e6\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/interfaces/IPaymaster.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\nimport \\\"./UserOperation.sol\\\";\\n\\n/**\\n * the interface exposed by a paymaster contract, who agrees to pay the gas for user's operations.\\n * a paymaster must hold a stake to cover the required entrypoint stake and also the gas for the transaction.\\n */\\ninterface IPaymaster {\\n\\n    /**\\n     * payment validation: check if paymaster agree to pay.\\n     * Must verify sender is the entryPoint.\\n     * Revert to reject this request.\\n     * Note that bundlers will reject this method if it changes the state, unless the paymaster is trusted (whitelisted)\\n     * The paymaster pre-pays using its deposit, and receive back a refund after the postOp method returns.\\n     * @param userOp the user operation\\n     * @param userOpHash hash of the user's request data.\\n     * @param maxCost the maximum cost of this transaction (based on maximum gas and gas price from userOp)\\n     * @return context value to send to a postOp\\n     *  zero length to signify postOp is not required.\\n     * @return deadline the last block timestamp this operation is valid, or zero if it is valid indefinitely.\\n     *      Note that the validation code cannot use block.timestamp (or block.number) directly.\\n     */\\n    function validatePaymasterUserOp(UserOperation calldata userOp, bytes32 userOpHash, uint256 maxCost)\\n    external returns (bytes memory context, uint256 deadline);\\n\\n    /**\\n     * post-operation handler.\\n     * Must verify sender is the entryPoint\\n     * @param mode enum with the following options:\\n     *      opSucceeded - user operation succeeded.\\n     *      opReverted  - user op reverted. still has to pay for gas.\\n     *      postOpReverted - user op succeeded, but caused postOp (in mode=opSucceeded) to revert.\\n     *                       Now this is the 2nd call, after user's op was deliberately reverted.\\n     * @param context - the context value returned by validatePaymasterUserOp\\n     * @param actualGasCost - actual gas used so far (without this postOp call).\\n     */\\n    function postOp(PostOpMode mode, bytes calldata context, uint256 actualGasCost) external;\\n\\n    enum PostOpMode {\\n        opSucceeded, // user op succeeded\\n        opReverted, // user op reverted. still has to pay for gas.\\n        postOpReverted //user op succeeded, but caused postOp to revert. Now its a 2nd call, after user's op was deliberately reverted.\\n    }\\n}\\n\",\"keccak256\":\"0x717106f07965b8615c8403509e02079561c73c0222f29bad4cfe4df5dfb8a0bb\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/interfaces/IStakeManager.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0-only\\npragma solidity ^0.8.18;\\n\\n/**\\n * manage deposits and stakes.\\n * deposit is just a balance used to pay for UserOperations (either by a paymaster or an account)\\n * stake is value locked for at least \\\"unstakeDelay\\\" by the staked entity.\\n */\\ninterface IStakeManager {\\n\\n    event Deposited(\\n        address indexed account,\\n        uint256 totalDeposit\\n    );\\n\\n    event Withdrawn(\\n        address indexed account,\\n        address withdrawAddress,\\n        uint256 amount\\n    );\\n\\n    /// Emitted when stake or unstake delay are modified\\n    event StakeLocked(\\n        address indexed account,\\n        uint256 totalStaked,\\n        uint256 unstakeDelaySec\\n    );\\n\\n    /// Emitted once a stake is scheduled for withdrawal\\n    event StakeUnlocked(\\n        address indexed account,\\n        uint256 withdrawTime\\n    );\\n\\n    event StakeWithdrawn(\\n        address indexed account,\\n        address withdrawAddress,\\n        uint256 amount\\n    );\\n\\n    /**\\n     * @param deposit the entity's deposit\\n     * @param staked true if this entity is staked.\\n     * @param stake actual amount of ether staked for this entity.\\n     * @param unstakeDelaySec minimum delay to withdraw the stake.\\n     * @param withdrawTime - first block timestamp where 'withdrawStake' will be callable, or zero if already locked\\n     * @dev sizes were chosen so that (deposit,staked, stake) fit into one cell (used during handleOps)\\n     *    and the rest fit into a 2nd cell.\\n     *    112 bit allows for 10^15 eth\\n     *    48 bit for full timestamp\\n     *    32 bit allows 150 years for unstake delay\\n     */\\n    struct DepositInfo {\\n        uint112 deposit;\\n        bool staked;\\n        uint112 stake;\\n        uint32 unstakeDelaySec;\\n        uint48 withdrawTime;\\n    }\\n\\n    //API struct used by getStakeInfo and simulateValidation\\n    struct StakeInfo {\\n        uint256 stake;\\n        uint256 unstakeDelaySec;\\n    }\\n\\n    /// @return info - full deposit information of given account\\n    function getDepositInfo(address account) external view returns (DepositInfo memory info);\\n\\n    /// @return the deposit (for gas payment) of the account\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * add to the deposit of the given account\\n     */\\n    function depositTo(address account) external payable;\\n\\n    /**\\n     * add to the account's stake - amount and delay\\n     * any pending unstake is first cancelled.\\n     * @param _unstakeDelaySec the new lock duration before the deposit can be withdrawn.\\n     */\\n    function addStake(uint32 _unstakeDelaySec) external payable;\\n\\n    /**\\n     * attempt to unlock the stake.\\n     * the value can be withdrawn (using withdrawStake) after the unstake delay.\\n     */\\n    function unlockStake() external;\\n\\n    /**\\n     * withdraw from the (unlocked) stake.\\n     * must first call unlockStake and wait for the unstakeDelay to pass\\n     * @param withdrawAddress the address to send withdrawn value.\\n     */\\n    function withdrawStake(address payable withdrawAddress) external;\\n\\n    /**\\n     * withdraw from the deposit.\\n     * @param withdrawAddress the address to send withdrawn value.\\n     * @param withdrawAmount the amount to withdraw.\\n     */\\n    function withdrawTo(address payable withdrawAddress, uint256 withdrawAmount) external;\\n}\\n\",\"keccak256\":\"0x46a71b0ea9b8d3505ec3b21b0819b37f39723802f9d0482c18754a3bfd6b0d81\",\"license\":\"GPL-3.0-only\"},\"contracts/accountAbstraction/interfaces/IWhitelistPaymaster.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\ninterface IWhitelistPaymaster {\\n    event WhitelistedSenderAddressAdded(address addr);\\n    event WhitelistedSenderAddressRemoved(address addr);\\n\\n    event WhitelistedTargetAddressAdded(address addr);\\n    event WhitelistedTargetAddressRemoved(address addr);\\n\\n    event Accepted(address indexed onBehlafOf, address indexed to, uint256 gas);\\n\\n    function whitelistSender(address) external;\\n    function whitelistTarget(address) external;\\n\\n    function isWhitelistedTarget(address target) external view returns (bool);\\n    function isWhitelistedSender(address sender) external view returns (bool);\\n}\",\"keccak256\":\"0x07743f653597717cd4215391e6d99ee8bb35f5fe13d3b3df0cfa6a709aee75c5\",\"license\":\"GPL-3.0\"},\"contracts/accountAbstraction/interfaces/UserOperation.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\npragma solidity ^0.8.18;\\n\\n/* solhint-disable no-inline-assembly */\\n\\n    /**\\n     * User Operation struct\\n     * @param sender the sender account of this request.\\n     * @param nonce unique value the sender uses to verify it is not a replay.\\n     * @param initCode if set, the account contract will be created by this constructor/\\n     * @param callData the method call to execute on this account.\\n     * @param callGasLimit the gas limit passed to the callData method call.\\n     * @param verificationGasLimit gas used for validateUserOp and validatePaymasterUserOp.\\n     * @param preVerificationGas gas not calculated by the handleOps method, but added to the gas paid. Covers batch overhead.\\n     * @param maxFeePerGas same as EIP-1559 gas parameter.\\n     * @param maxPriorityFeePerGas same as EIP-1559 gas parameter.\\n     * @param paymasterAndData if set, this field holds the paymaster address and paymaster-specific data. the paymaster will pay for the transaction instead of the sender.\\n     * @param signature sender-verified signature over the entire request, the EntryPoint address and the chain ID.\\n     */\\n    struct UserOperation {\\n        address sender;\\n        uint256 nonce;\\n        bytes initCode;\\n        bytes callData;\\n        uint256 callGasLimit;\\n        uint256 verificationGasLimit;\\n        uint256 preVerificationGas;\\n        uint256 maxFeePerGas;\\n        uint256 maxPriorityFeePerGas;\\n        bytes paymasterAndData;\\n        bytes signature;\\n    }\\n\\n/**\\n * Utility functions helpful when working with UserOperation structs.\\n */\\nlibrary UserOperationLib {\\n\\n    function getSender(UserOperation calldata userOp) internal pure returns (address) {\\n        address data;\\n        //read sender from userOp, which is first userOp member (saves 800 gas...)\\n        assembly {data := calldataload(userOp)}\\n        return address(uint160(data));\\n    }\\n\\n    function gasPrice(UserOperation calldata userOp) internal view returns (uint256) {\\n    unchecked {\\n        uint256 maxFeePerGas = userOp.maxFeePerGas;\\n        uint256 maxPriorityFeePerGas = userOp.maxPriorityFeePerGas;\\n        if (maxFeePerGas == maxPriorityFeePerGas) {\\n            //legacy mode (for networks that don't support basefee opcode)\\n            return maxFeePerGas;\\n        }\\n        return min(maxFeePerGas, maxPriorityFeePerGas + block.basefee);\\n    }\\n    }\\n\\n    function pack(UserOperation calldata userOp) internal pure returns (bytes memory ret) {\\n        //lighter signature scheme. must match UserOp.ts#packUserOp\\n        bytes calldata sig = userOp.signature;\\n        // copy directly the userOp from calldata up to (but not including) the signature.\\n        // this encoding depends on the ABI encoding of calldata, but is much lighter to copy\\n        // than referencing each field separately.\\n        assembly {\\n            let ofs := userOp\\n            let len := sub(sub(sig.offset, ofs), 32)\\n            ret := mload(0x40)\\n            mstore(0x40, add(ret, add(len, 32)))\\n            mstore(ret, len)\\n            calldatacopy(add(ret, 32), ofs, len)\\n        }\\n    }\\n\\n    function hash(UserOperation calldata userOp) internal pure returns (bytes32) {\\n        return keccak256(pack(userOp));\\n    }\\n\\n    function min(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a < b ? a : b;\\n    }\\n}\\n\",\"keccak256\":\"0x123583323647831d4e429989aa644153de38181edd73a7307d0716dac5bfc14c\",\"license\":\"GPL-3.0\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b5060405162001a8e38038062001a8e8339818101604052810190620000379190620002c9565b80620000586200004c6200007160201b60201c565b6200007960201b60201c565b62000069816200013d60201b60201c565b50506200037e565b600033905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b6200014d6200019160201b60201c565b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b620001a16200007160201b60201c565b73ffffffffffffffffffffffffffffffffffffffff16620001c76200022260201b60201c565b73ffffffffffffffffffffffffffffffffffffffff161462000220576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040162000217906200035c565b60405180910390fd5b565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006200027d8262000250565b9050919050565b6000620002918262000270565b9050919050565b620002a38162000284565b8114620002af57600080fd5b50565b600081519050620002c38162000298565b92915050565b600060208284031215620002e257620002e16200024b565b5b6000620002f284828501620002b2565b91505092915050565b600082825260208201905092915050565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b600062000344602083620002fb565b915062000351826200030c565b602082019050919050565b60006020820190508181036000830152620003778162000335565b9050919050565b611700806200038e6000396000f3fe6080604052600436106101145760003560e01c80638da5cb5b116100a0578063c23a5cea11610064578063c23a5cea1461037a578063c399ec88146103a3578063d0e30db0146103ce578063f2fde38b146103d8578063f465c77e1461040157610114565b80638da5cb5b146102a7578063907caa00146102d2578063a9a234091461030f578063b0d691fe14610338578063bb9fe6bf1461036357610114565b80632f10a6c6116100e75780632f10a6c6146101c4578063584465f2146101ed578063715018a6146102165780638222f07d1461022d578063858437b01461026a57610114565b80630396cb60146101195780631b9e2fad146101355780631cfda9fa14610172578063205c28781461019b575b600080fd5b610133600480360381019061012e9190610ed1565b61043f565b005b34801561014157600080fd5b5061015c60048036038101906101579190610f5c565b6104d8565b6040516101699190610fa4565b60405180910390f35b34801561017e57600080fd5b5061019960048036038101906101949190610f5c565b61052e565b005b3480156101a757600080fd5b506101c260048036038101906101bd9190611033565b6105c8565b005b3480156101d057600080fd5b506101eb60048036038101906101e69190610f5c565b610663565b005b3480156101f957600080fd5b50610214600480360381019061020f91906110b1565b6106fd565b005b34801561022257600080fd5b5061022b610749565b005b34801561023957600080fd5b50610254600480360381019061024f9190610f5c565b61075d565b6040516102619190610fa4565b60405180910390f35b34801561027657600080fd5b50610291600480360381019061028c9190610f5c565b61077d565b60405161029e9190610fa4565b60405180910390f35b3480156102b357600080fd5b506102bc61079d565b6040516102c991906110ed565b60405180910390f35b3480156102de57600080fd5b506102f960048036038101906102f49190610f5c565b6107c6565b6040516103069190610fa4565b60405180910390f35b34801561031b57600080fd5b5061033660048036038101906103319190611192565b61081c565b005b34801561034457600080fd5b5061034d610836565b60405161035a9190611265565b60405180910390f35b34801561036f57600080fd5b5061037861085c565b005b34801561038657600080fd5b506103a1600480360381019061039c9190611280565b6108e8565b005b3480156103af57600080fd5b506103b8610980565b6040516103c591906112bc565b60405180910390f35b6103d6610a23565b005b3480156103e457600080fd5b506103ff60048036038101906103fa9190610f5c565b610ab3565b005b34801561040d57600080fd5b5061042860048036038101906104239190611332565b610b36565b604051610436929190611431565b60405180910390f35b610447610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16630396cb6034836040518363ffffffff1660e01b81526004016104a39190611470565b6000604051808303818588803b1580156104bc57600080fd5b505af11580156104d0573d6000803e3d6000fd5b505050505050565b6000600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b610536610caa565b6001600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055507fb247c6bc9b15399c4e26c64254ec9e9a0d897aaa8360bc962845e2ee079d2cd5816040516105bd91906110ed565b60405180910390a150565b6105d0610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663205c287883836040518363ffffffff1660e01b815260040161062d92919061149a565b600060405180830381600087803b15801561064757600080fd5b505af115801561065b573d6000803e3d6000fd5b505050505050565b61066b610caa565b6001600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055507fb65748ca52f895b457808c4dfa30c1cb1c28ca296d55794426b00c7a5360b916816040516106f291906110ed565b60405180910390a150565b610705610caa565b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b610751610caa565b61075b6000610d28565b565b60026020528060005260406000206000915054906101000a900460ff1681565b60036020528060005260406000206000915054906101000a900460ff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b610824610dec565b61083084848484610e48565b50505050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b610864610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663bb9fe6bf6040518163ffffffff1660e01b8152600401600060405180830381600087803b1580156108ce57600080fd5b505af11580156108e2573d6000803e3d6000fd5b50505050565b6108f0610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663c23a5cea826040518263ffffffff1660e01b815260040161094b91906114c3565b600060405180830381600087803b15801561096557600080fd5b505af1158015610979573d6000803e3d6000fd5b5050505050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b81526004016109dd91906110ed565b602060405180830381865afa1580156109fa573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a1e91906114f3565b905090565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663b760faf934306040518363ffffffff1660e01b8152600401610a7f91906110ed565b6000604051808303818588803b158015610a9857600080fd5b505af1158015610aac573d6000803e3d6000fd5b5050505050565b610abb610caa565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603610b2a576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610b21906115a3565b60405180910390fd5b610b3381610d28565b50565b6060600080856000016020810190610b4e9190610f5c565b73ffffffffffffffffffffffffffffffffffffffff163b03610b9c576040517f817206af00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60026000866000016020810190610bb39190610f5c565b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610c4e57846000016020810190610c129190610f5c565b6040517fbf3f9389000000000000000000000000000000000000000000000000000000008152600401610c4591906110ed565b60405180910390fd5b600067ffffffffffffffff811115610c6957610c686115c3565b5b6040519080825280601f01601f191660200182016040528015610c9b5781602001600182028036833780820191505090505b50600091509150935093915050565b610cb2610e83565b73ffffffffffffffffffffffffffffffffffffffff16610cd061079d565b73ffffffffffffffffffffffffffffffffffffffff1614610d26576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610d1d9061163e565b60405180910390fd5b565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610e4657600080fd5b565b6040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610e7a906116aa565b60405180910390fd5b600033905090565b600080fd5b600080fd5b600063ffffffff82169050919050565b610eae81610e95565b8114610eb957600080fd5b50565b600081359050610ecb81610ea5565b92915050565b600060208284031215610ee757610ee6610e8b565b5b6000610ef584828501610ebc565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610f2982610efe565b9050919050565b610f3981610f1e565b8114610f4457600080fd5b50565b600081359050610f5681610f30565b92915050565b600060208284031215610f7257610f71610e8b565b5b6000610f8084828501610f47565b91505092915050565b60008115159050919050565b610f9e81610f89565b82525050565b6000602082019050610fb96000830184610f95565b92915050565b6000610fca82610efe565b9050919050565b610fda81610fbf565b8114610fe557600080fd5b50565b600081359050610ff781610fd1565b92915050565b6000819050919050565b61101081610ffd565b811461101b57600080fd5b50565b60008135905061102d81611007565b92915050565b6000806040838503121561104a57611049610e8b565b5b600061105885828601610fe8565b92505060206110698582860161101e565b9150509250929050565b600061107e82610f1e565b9050919050565b61108e81611073565b811461109957600080fd5b50565b6000813590506110ab81611085565b92915050565b6000602082840312156110c7576110c6610e8b565b5b60006110d58482850161109c565b91505092915050565b6110e781610f1e565b82525050565b600060208201905061110260008301846110de565b92915050565b6003811061111557600080fd5b50565b60008135905061112781611108565b92915050565b600080fd5b600080fd5b600080fd5b60008083601f8401126111525761115161112d565b5b8235905067ffffffffffffffff81111561116f5761116e611132565b5b60208301915083600182028301111561118b5761118a611137565b5b9250929050565b600080600080606085870312156111ac576111ab610e8b565b5b60006111ba87828801611118565b945050602085013567ffffffffffffffff8111156111db576111da610e90565b5b6111e78782880161113c565b935093505060406111fa8782880161101e565b91505092959194509250565b6000819050919050565b600061122b61122661122184610efe565b611206565b610efe565b9050919050565b600061123d82611210565b9050919050565b600061124f82611232565b9050919050565b61125f81611244565b82525050565b600060208201905061127a6000830184611256565b92915050565b60006020828403121561129657611295610e8b565b5b60006112a484828501610fe8565b91505092915050565b6112b681610ffd565b82525050565b60006020820190506112d160008301846112ad565b92915050565b600080fd5b600061016082840312156112f3576112f26112d7565b5b81905092915050565b6000819050919050565b61130f816112fc565b811461131a57600080fd5b50565b60008135905061132c81611306565b92915050565b60008060006060848603121561134b5761134a610e8b565b5b600084013567ffffffffffffffff81111561136957611368610e90565b5b611375868287016112dc565b93505060206113868682870161131d565b92505060406113978682870161101e565b9150509250925092565b600081519050919050565b600082825260208201905092915050565b60005b838110156113db5780820151818401526020810190506113c0565b60008484015250505050565b6000601f19601f8301169050919050565b6000611403826113a1565b61140d81856113ac565b935061141d8185602086016113bd565b611426816113e7565b840191505092915050565b6000604082019050818103600083015261144b81856113f8565b905061145a60208301846112ad565b9392505050565b61146a81610e95565b82525050565b60006020820190506114856000830184611461565b92915050565b61149481610fbf565b82525050565b60006040820190506114af600083018561148b565b6114bc60208301846112ad565b9392505050565b60006020820190506114d8600083018461148b565b92915050565b6000815190506114ed81611007565b92915050565b60006020828403121561150957611508610e8b565b5b6000611517848285016114de565b91505092915050565b600082825260208201905092915050565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160008201527f6464726573730000000000000000000000000000000000000000000000000000602082015250565b600061158d602683611520565b915061159882611531565b604082019050919050565b600060208201905081810360008301526115bc81611580565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b6000611628602083611520565b9150611633826115f2565b602082019050919050565b600060208201905081810360008301526116578161161b565b9050919050565b7f6d757374206f7665727269646500000000000000000000000000000000000000600082015250565b6000611694600d83611520565b915061169f8261165e565b602082019050919050565b600060208201905081810360008301526116c381611687565b905091905056fea26469706673582212208731fa19625e482fb86551c1204766d49c3e47662761ccfb2aba30d404b0c9f464736f6c63430008120033",
+  "deployedBytecode": "0x6080604052600436106101145760003560e01c80638da5cb5b116100a0578063c23a5cea11610064578063c23a5cea1461037a578063c399ec88146103a3578063d0e30db0146103ce578063f2fde38b146103d8578063f465c77e1461040157610114565b80638da5cb5b146102a7578063907caa00146102d2578063a9a234091461030f578063b0d691fe14610338578063bb9fe6bf1461036357610114565b80632f10a6c6116100e75780632f10a6c6146101c4578063584465f2146101ed578063715018a6146102165780638222f07d1461022d578063858437b01461026a57610114565b80630396cb60146101195780631b9e2fad146101355780631cfda9fa14610172578063205c28781461019b575b600080fd5b610133600480360381019061012e9190610ed1565b61043f565b005b34801561014157600080fd5b5061015c60048036038101906101579190610f5c565b6104d8565b6040516101699190610fa4565b60405180910390f35b34801561017e57600080fd5b5061019960048036038101906101949190610f5c565b61052e565b005b3480156101a757600080fd5b506101c260048036038101906101bd9190611033565b6105c8565b005b3480156101d057600080fd5b506101eb60048036038101906101e69190610f5c565b610663565b005b3480156101f957600080fd5b50610214600480360381019061020f91906110b1565b6106fd565b005b34801561022257600080fd5b5061022b610749565b005b34801561023957600080fd5b50610254600480360381019061024f9190610f5c565b61075d565b6040516102619190610fa4565b60405180910390f35b34801561027657600080fd5b50610291600480360381019061028c9190610f5c565b61077d565b60405161029e9190610fa4565b60405180910390f35b3480156102b357600080fd5b506102bc61079d565b6040516102c991906110ed565b60405180910390f35b3480156102de57600080fd5b506102f960048036038101906102f49190610f5c565b6107c6565b6040516103069190610fa4565b60405180910390f35b34801561031b57600080fd5b5061033660048036038101906103319190611192565b61081c565b005b34801561034457600080fd5b5061034d610836565b60405161035a9190611265565b60405180910390f35b34801561036f57600080fd5b5061037861085c565b005b34801561038657600080fd5b506103a1600480360381019061039c9190611280565b6108e8565b005b3480156103af57600080fd5b506103b8610980565b6040516103c591906112bc565b60405180910390f35b6103d6610a23565b005b3480156103e457600080fd5b506103ff60048036038101906103fa9190610f5c565b610ab3565b005b34801561040d57600080fd5b5061042860048036038101906104239190611332565b610b36565b604051610436929190611431565b60405180910390f35b610447610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16630396cb6034836040518363ffffffff1660e01b81526004016104a39190611470565b6000604051808303818588803b1580156104bc57600080fd5b505af11580156104d0573d6000803e3d6000fd5b505050505050565b6000600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b610536610caa565b6001600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055507fb247c6bc9b15399c4e26c64254ec9e9a0d897aaa8360bc962845e2ee079d2cd5816040516105bd91906110ed565b60405180910390a150565b6105d0610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663205c287883836040518363ffffffff1660e01b815260040161062d92919061149a565b600060405180830381600087803b15801561064757600080fd5b505af115801561065b573d6000803e3d6000fd5b505050505050565b61066b610caa565b6001600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055507fb65748ca52f895b457808c4dfa30c1cb1c28ca296d55794426b00c7a5360b916816040516106f291906110ed565b60405180910390a150565b610705610caa565b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b610751610caa565b61075b6000610d28565b565b60026020528060005260406000206000915054906101000a900460ff1681565b60036020528060005260406000206000915054906101000a900460ff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b610824610dec565b61083084848484610e48565b50505050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b610864610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663bb9fe6bf6040518163ffffffff1660e01b8152600401600060405180830381600087803b1580156108ce57600080fd5b505af11580156108e2573d6000803e3d6000fd5b50505050565b6108f0610caa565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663c23a5cea826040518263ffffffff1660e01b815260040161094b91906114c3565b600060405180830381600087803b15801561096557600080fd5b505af1158015610979573d6000803e3d6000fd5b5050505050565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b81526004016109dd91906110ed565b602060405180830381865afa1580156109fa573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610a1e91906114f3565b905090565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663b760faf934306040518363ffffffff1660e01b8152600401610a7f91906110ed565b6000604051808303818588803b158015610a9857600080fd5b505af1158015610aac573d6000803e3d6000fd5b5050505050565b610abb610caa565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603610b2a576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610b21906115a3565b60405180910390fd5b610b3381610d28565b50565b6060600080856000016020810190610b4e9190610f5c565b73ffffffffffffffffffffffffffffffffffffffff163b03610b9c576040517f817206af00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60026000866000016020810190610bb39190610f5c565b73ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16610c4e57846000016020810190610c129190610f5c565b6040517fbf3f9389000000000000000000000000000000000000000000000000000000008152600401610c4591906110ed565b60405180910390fd5b600067ffffffffffffffff811115610c6957610c686115c3565b5b6040519080825280601f01601f191660200182016040528015610c9b5781602001600182028036833780820191505090505b50600091509150935093915050565b610cb2610e83565b73ffffffffffffffffffffffffffffffffffffffff16610cd061079d565b73ffffffffffffffffffffffffffffffffffffffff1614610d26576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610d1d9061163e565b60405180910390fd5b565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610e4657600080fd5b565b6040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401610e7a906116aa565b60405180910390fd5b600033905090565b600080fd5b600080fd5b600063ffffffff82169050919050565b610eae81610e95565b8114610eb957600080fd5b50565b600081359050610ecb81610ea5565b92915050565b600060208284031215610ee757610ee6610e8b565b5b6000610ef584828501610ebc565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610f2982610efe565b9050919050565b610f3981610f1e565b8114610f4457600080fd5b50565b600081359050610f5681610f30565b92915050565b600060208284031215610f7257610f71610e8b565b5b6000610f8084828501610f47565b91505092915050565b60008115159050919050565b610f9e81610f89565b82525050565b6000602082019050610fb96000830184610f95565b92915050565b6000610fca82610efe565b9050919050565b610fda81610fbf565b8114610fe557600080fd5b50565b600081359050610ff781610fd1565b92915050565b6000819050919050565b61101081610ffd565b811461101b57600080fd5b50565b60008135905061102d81611007565b92915050565b6000806040838503121561104a57611049610e8b565b5b600061105885828601610fe8565b92505060206110698582860161101e565b9150509250929050565b600061107e82610f1e565b9050919050565b61108e81611073565b811461109957600080fd5b50565b6000813590506110ab81611085565b92915050565b6000602082840312156110c7576110c6610e8b565b5b60006110d58482850161109c565b91505092915050565b6110e781610f1e565b82525050565b600060208201905061110260008301846110de565b92915050565b6003811061111557600080fd5b50565b60008135905061112781611108565b92915050565b600080fd5b600080fd5b600080fd5b60008083601f8401126111525761115161112d565b5b8235905067ffffffffffffffff81111561116f5761116e611132565b5b60208301915083600182028301111561118b5761118a611137565b5b9250929050565b600080600080606085870312156111ac576111ab610e8b565b5b60006111ba87828801611118565b945050602085013567ffffffffffffffff8111156111db576111da610e90565b5b6111e78782880161113c565b935093505060406111fa8782880161101e565b91505092959194509250565b6000819050919050565b600061122b61122661122184610efe565b611206565b610efe565b9050919050565b600061123d82611210565b9050919050565b600061124f82611232565b9050919050565b61125f81611244565b82525050565b600060208201905061127a6000830184611256565b92915050565b60006020828403121561129657611295610e8b565b5b60006112a484828501610fe8565b91505092915050565b6112b681610ffd565b82525050565b60006020820190506112d160008301846112ad565b92915050565b600080fd5b600061016082840312156112f3576112f26112d7565b5b81905092915050565b6000819050919050565b61130f816112fc565b811461131a57600080fd5b50565b60008135905061132c81611306565b92915050565b60008060006060848603121561134b5761134a610e8b565b5b600084013567ffffffffffffffff81111561136957611368610e90565b5b611375868287016112dc565b93505060206113868682870161131d565b92505060406113978682870161101e565b9150509250925092565b600081519050919050565b600082825260208201905092915050565b60005b838110156113db5780820151818401526020810190506113c0565b60008484015250505050565b6000601f19601f8301169050919050565b6000611403826113a1565b61140d81856113ac565b935061141d8185602086016113bd565b611426816113e7565b840191505092915050565b6000604082019050818103600083015261144b81856113f8565b905061145a60208301846112ad565b9392505050565b61146a81610e95565b82525050565b60006020820190506114856000830184611461565b92915050565b61149481610fbf565b82525050565b60006040820190506114af600083018561148b565b6114bc60208301846112ad565b9392505050565b60006020820190506114d8600083018461148b565b92915050565b6000815190506114ed81611007565b92915050565b60006020828403121561150957611508610e8b565b5b6000611517848285016114de565b91505092915050565b600082825260208201905092915050565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160008201527f6464726573730000000000000000000000000000000000000000000000000000602082015250565b600061158d602683611520565b915061159882611531565b604082019050919050565b600060208201905081810360008301526115bc81611580565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b6000611628602083611520565b9150611633826115f2565b602082019050919050565b600060208201905081810360008301526116578161161b565b9050919050565b7f6d757374206f7665727269646500000000000000000000000000000000000000600082015250565b6000611694600d83611520565b915061169f8261165e565b602082019050919050565b600060208201905081810360008301526116c381611687565b905091905056fea26469706673582212208731fa19625e482fb86551c1204766d49c3e47662761ccfb2aba30d404b0c9f464736f6c63430008120033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "addStake(uint32)": {
+        "params": {
+          "unstakeDelaySec": "- the unstake delay for this paymaster. Can only be increased."
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "postOp(uint8,bytes,uint256)": {
+        "params": {
+          "actualGasCost": "- actual gas used so far (without this postOp call).",
+          "context": "- the context value returned by validatePaymasterUserOp",
+          "mode": "enum with the following options:      opSucceeded - user operation succeeded.      opReverted  - user op reverted. still has to pay for gas.      postOpReverted - user op succeeded, but caused postOp (in mode=opSucceeded) to revert.                       Now this is the 2nd call, after user's op was deliberately reverted."
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "withdrawStake(address)": {
+        "params": {
+          "withdrawAddress": "the address to send withdrawn value."
+        }
+      },
+      "withdrawTo(address,uint256)": {
+        "params": {
+          "amount": "to withdraw",
+          "withdrawAddress": "target to send to"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "addStake(uint32)": {
+        "notice": "add stake for this paymaster. This method can also carry eth value to add to the current stake."
+      },
+      "deposit()": {
+        "notice": "add a deposit for this paymaster, used for paying for transaction fees"
+      },
+      "getDeposit()": {
+        "notice": "return current paymaster's deposit on the entryPoint."
+      },
+      "postOp(uint8,bytes,uint256)": {
+        "notice": "post-operation handler. Must verify sender is the entryPoint"
+      },
+      "unlockStake()": {
+        "notice": "unlock the stake, in order to withdraw it. The paymaster can't serve requests once unlocked, until it calls addStake again"
+      },
+      "withdrawStake(address)": {
+        "notice": "withdraw the entire paymaster's stake. stake must be unlocked first (and then wait for the unstakeDelay to be over)"
+      },
+      "withdrawTo(address,uint256)": {
+        "notice": "withdraw value from the deposit"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4555,
+        "contract": "contracts/accountAbstraction/Paymaster.sol:Paymaster",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 13868,
+        "contract": "contracts/accountAbstraction/Paymaster.sol:Paymaster",
+        "label": "entryPoint",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(IEntryPoint)14934"
+      },
+      {
+        "astId": 13575,
+        "contract": "contracts/accountAbstraction/Paymaster.sol:Paymaster",
+        "label": "senderWhitelist",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_bool)"
+      },
+      {
+        "astId": 13579,
+        "contract": "contracts/accountAbstraction/Paymaster.sol:Paymaster",
+        "label": "targetWhitelist",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(IEntryPoint)14934": {
+        "encoding": "inplace",
+        "label": "contract IEntryPoint",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      }
+    }
+  }
+}
