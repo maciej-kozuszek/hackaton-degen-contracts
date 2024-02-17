@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract DividendVault is Ownable {
     IERC20 stablecoin;
 
+    uint256 multiplier = 10 ** 18;
     event NewDividend(uint256 dividendNumber);
 
     error AlreadyExist();
@@ -74,8 +75,10 @@ contract DividendVault is Ownable {
         equityToken.transferFrom(msg.sender, address(this), equityTokenBalance);
 
         dividends[address(equityToken)][dividendNumber].lockedSharesMapping[msg.sender] = equityTokenBalance;
-        uint256 amountToClaimPerHolder = (dividends[address(equityToken)][dividendNumber].amountToClaim / totalSupply) *
-            equityTokenBalance;
+        uint256 amountToClaimPerHolder = ((dividends[address(equityToken)][dividendNumber].amountToClaim /
+            totalSupply) *
+            multiplier *
+            equityTokenBalance) / multiplier;
 
         dividends[address(equityToken)][dividendNumber].claimed += amountToClaimPerHolder;
 
