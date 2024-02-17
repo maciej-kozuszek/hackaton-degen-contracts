@@ -14,9 +14,10 @@ dotenv.config()
 const config: HardhatUserConfig = {
     solidity: '0.8.18',
     typechain: {
-        outDir: './typechain',
+        outDir: './src/typechain',
         target: 'ethers-v5',
     },
+    defaultNetwork: KNOWN_NETWORK.POLYGON_MUMBAI,
     networks: {
         [KNOWN_NETWORK.POLYGON_MUMBAI]: {
             url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.POLYGON_MUMBAI_ALCHEMY_API_KEY}`,
@@ -59,7 +60,6 @@ const config: HardhatUserConfig = {
         spacing: 2,
         format: 'json',
     },
-
 }
 
 export default config
