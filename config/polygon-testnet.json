@@ -1,0 +1,7 @@
+{
+  "environment": "testnet",
+  "network": "polygon-testnet",
+  "chainId": "80001",
+  "rpcUrl": "https://rpc-mumbai.maticvigil.com",
+  "entryPoint": "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789"
+}

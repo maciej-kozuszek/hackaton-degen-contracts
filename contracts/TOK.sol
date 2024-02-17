@@ -12,6 +12,7 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
     uint256 private constant ALL = 0;
     uint256 private constant TOKEN = 1;
     uint256 private constant ORDER = 2;
+
     IERC20Upgradeable private coinToken;
 
     enum State {
@@ -28,41 +29,19 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
 
     struct Order {
         uint256 pricePerToken;
-        address tokenAddress;
         uint256 totalOrderAmount;
+        uint256 equityTokenAmount;
+        address tokenAddress;
         State currentState;
         bool ppraFee;
-        address equityTokenOwner;
-        uint256 equityTokenAmount;
         bool equityTokenSig;
         bool stableCoinSig;
+        address equityTokenOwner;
     }
 
-    function getOrders(uint256 _orderId)
-        external
-        view
-        returns (
-            uint256 price,
-            address tokenAddress,
-            State currentState,
-            uint256 amount,
-            bool ppraFee,
-            address equityTokenOwner,
-            uint256 equityTokenAmount
-        )
-    {
-        return (
-            orders[_orderId].pricePerToken,
-            orders[_orderId].tokenAddress,
-            orders[_orderId].currentState,
-            orders[_orderId].totalOrderAmount,
-            orders[_orderId].ppraFee,
-            orders[_orderId].equityTokenOwner,
-            orders[_orderId].equityTokenAmount
-        );
-    }
-
-    Order[] private orders;
+    uint256 orderLength;
+    mapping(uint256 => Order) orders;
+    
     mapping(address => uint256) private stableCoinBalance;
     mapping(address => uint256) private equityTokenOwnerShipAmount;
     mapping(uint256 => address) private orderToOwner;
@@ -128,24 +107,29 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
 
     event RunChangeOrderByOwnerEvent(uint256 indexed orderId);
 
+    error InvalidTokOwner();
+    error InvalidState();
+
     modifier onlyOrderOwner(uint256 _orderId) {
-        require(
-            msg.sender == orderToOwner[_orderId],
-            "TOK: you are not Order owner"
-        );
+        if(msg.sender != orderToOwner[_orderId]) {
+            revert InvalidTokOwner();
+        }
         _;
     }
 
     modifier onlyEquityTokenOwner(uint256 _orderId) {
-        require(
-            msg.sender == orders[_orderId].equityTokenOwner,
-            "TOK: you are not Token owner"
-        );
+        if(msg.sender != orders[_orderId].equityTokenOwner) {
+            revert InvalidTokOwner();
+        }
+   
         _;
     }
 
     modifier onlyValidState(uint _orderId, State _state) {
-        require(orders[_orderId].currentState == _state, "TOK: state error");
+        if(orders[_orderId].currentState != _state) {
+            revert InvalidState();
+        }
+      
         _;
     }
 
@@ -157,6 +141,30 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
+    }
+
+        function getOrders(uint256 _orderId)
+        external
+        view
+        returns (
+            uint256 price,
+            address tokenAddress,
+            State currentState,
+            uint256 amount,
+            bool ppraFee,
+            address equityTokenOwner,
+            uint256 equityTokenAmount
+        )
+    {
+        return (
+            orders[_orderId].pricePerToken,
+            orders[_orderId].tokenAddress,
+            orders[_orderId].currentState,
+            orders[_orderId].totalOrderAmount,
+            orders[_orderId].ppraFee,
+            orders[_orderId].equityTokenOwner,
+            orders[_orderId].equityTokenAmount
+        );
     }
 
     function getOrderOwner(uint256 orderId) external view returns (address) {
@@ -199,32 +207,35 @@ contract TOK is PausableUpgradeable, OwnableUpgradeable {
     function createOrder(
         uint256 _price,
         address _tokenAddress,
-        uint256 _tokenAmount
+        uint256 _tokenAmount,
+        address _owner
     ) external notPaused {
-        orders.push(
+     
+        orders[orderLength] = 
             Order(
                 _price,
-                _tokenAddress,
                 _tokenAmount,
+                0,
+                _tokenAddress,
                 State.Created,
                 true,
-                address(this),
-                0,
                 false,
-                false
-            )
-        );
-        uint orderId = orders.length - 1;
-        orderToOwner[orderId] = msg.sender;
+                false,
+                address(this)
+            );
+      
+        orderToOwner[orderLength] = _owner;
         uint256 totalOrderAmount = _tokenAmount * _price;
         deposit(coinToken, totalOrderAmount);
 
         emit NewOrderEvent(
-            orderId,
+            orderLength,
             totalOrderAmount,
             _tokenAddress,
             _tokenAmount
         );
+
+          orderLength = orderLength + 1;
     }
 
     function cancelOrderByOwner(uint256 _orderId)

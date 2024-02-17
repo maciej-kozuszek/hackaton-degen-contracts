@@ -22,6 +22,8 @@
   },
   "include": [
     "./src",
+    "./config",
+    "./tests",
     "./scripts",
     "./typechain",
     "./typechain-types",

@@ -8,7 +8,7 @@ import '@nomiclabs/hardhat-ethers'
 import '@typechain/hardhat'
 import 'hardhat-abi-exporter'
 import 'hardhat-deploy'
-import { CHAIN_IDS, CHAIN_NAMES, KNOWN_ACCOUNT, KNOWN_NETWORK } from 'helpers/constants'
+import { CHAIN_IDS, CHAIN_NAMES, KNOWN_ACCOUNT, KNOWN_NETWORK } from './config/constants'
 
 dotenv.config()
 const config: HardhatUserConfig = {
@@ -22,6 +22,8 @@ const config: HardhatUserConfig = {
             url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.POLYGON_MUMBAI_ALCHEMY_API_KEY}`,
             accounts: [`${process.env.DEPLOYER_PRIVATE_KEY}`],
             chainId: CHAIN_IDS[CHAIN_NAMES.POLYGON_MUMBAI],
+            throwOnCallFailures: true,
+            saveDeployments: true,
         },
     },
     paths: {
@@ -57,6 +59,7 @@ const config: HardhatUserConfig = {
         spacing: 2,
         format: 'json',
     },
+
 }
 
 export default config
