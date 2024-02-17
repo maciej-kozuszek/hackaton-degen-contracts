@@ -54,6 +54,7 @@ contract EquityToken is
     function createShares(address _customer, uint256 _amount) external onlyRole(MINTER_ROLE) {
         _mint(_customer, _amount);
     }
+
     function burnShares(address _customer, uint256 _amount) external onlyRole(MINTER_ROLE) {
         _burn(_customer, _amount);
     }

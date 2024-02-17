@@ -75,8 +75,8 @@ export const signatureTypes: SignatureTypes = {
 export function getCreateOrderTypedData(order: CreateOrderMessage, permit: ERC2612PermitMessage, domain: Domain): SignatureTypedData {
     return {
         domain: {
-            name: 'TestStableCoin',
-            version: '1',
+            name: domain.name,
+            version: domain.version,
             chainId: domain.chainId,
             verifyingContract: domain.verifyingContract,
         },
@@ -101,8 +101,8 @@ export function getCreateOrderTypedData(order: CreateOrderMessage, permit: ERC26
 export function getApproveOrderTypedData(data: ApproveOrderMessage, permit: ERC2612PermitMessage, domain: Domain): SignatureTypedData {
     return {
         domain: {
-            name: 'EquityToken',
-            version: '1',
+            name: domain.name,
+            version: domain.version,
             chainId: domain.chainId,
             verifyingContract: domain.verifyingContract,
         },
