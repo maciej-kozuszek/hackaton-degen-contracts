@@ -1,23 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import {PausableUpgradeable} from "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
-import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import {ERC20PermitUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
-import {IEquityToken} from "./interfaces/IEquityToken.sol";
-import {Whitelist} from "./Whitelist.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 
-contract EquityToken is
-    IEquityToken,
-    Initializable,
-    ERC20PermitUpgradeable,
-    AccessControlUpgradeable,
-    PausableUpgradeable,
-    Whitelist
+import "./IAllowedList.sol";
+contract EquityToken is  ERC20PermitUpgradeable, OwnableUpgradeable, PausableUpgradeable {
 {
-    bytes32 public constant OWNER_ROLE = keccak256("OWNER_ROLE");
-    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    using CountersUpgradeable for CountersUpgradeable.Counter;
+    CountersUpgradeable.Counter private _tokenIds;
+    string public baseURI;
+
+    IAllowedList allowedList;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -31,7 +28,6 @@ contract EquityToken is
 
     function initialize(string memory _name, string memory _symbol) public initializer {
         __ERC20_init(_name, _symbol);
-        __ERC20Permit_init(_name);
         __ERC20Pausable_init();
         __AccessControl_init();
 
@@ -56,19 +52,22 @@ contract EquityToken is
         _burn(_customer, _amount);
     }
 
-    function addToWhitelist(address _address) external override onlyRole(OWNER_ROLE) {
-        _addToWhitelist(_address);
+    function checkAllowedList(address _address) external view returns (bool) {
+
+        return allowedList.checkAllowedList(_address);
     }
 
-    function removeFromWhitelist(address _address) external override onlyRole(OWNER_ROLE) onlyWhitelisted(_address) {
-        _removeFromWhitelist(_address);
-    }
+    function _isInAllowedList(address _address) internal view {
 
-    function __ERC20Pausable_init() internal onlyInitializing {
+        require(allowedList.checkAllowedList(_address),"EquityToken: address is not on allowed list");
+    }
+    
+   function __ERC20Pausable_init() internal onlyInitializing {
         __Pausable_init_unchained();
     }
 
-    function __ERC20Pausable_init_unchained() internal onlyInitializing {}
+    function __ERC20Pausable_init_unchained() internal onlyInitializing {
+    }
 
     function _beforeTokenTransfer(
         address from,
@@ -76,7 +75,10 @@ contract EquityToken is
         uint256 amount
     ) internal virtual override notPaused onlyWhitelisted(to) {
         super._beforeTokenTransfer(from, to, amount);
-    }
 
+        require(allowedList.checkAllowedList(to),"EquityToken: address is not on allowed list");
+        require(!paused(), "EquityToken: token transfer while paused");
+    }
     uint256[50] private __gap;
+
 }

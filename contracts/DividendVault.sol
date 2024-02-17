@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.18;
 
 // import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -17,7 +17,7 @@ contract DividendVault is Ownable {
     error NoEquityTokenBalance();
     error OnlyCreator();
 
-    constructor(IERC20 _stablecoin) Ownable(msg.sender) {
+    constructor(IERC20 _stablecoin) {
         stablecoin = _stablecoin;
     }
 

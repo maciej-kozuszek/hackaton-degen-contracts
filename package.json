@@ -22,9 +22,12 @@
     "export-deployments": "yarn export-deployments-mumbai",
     "prebuild": "yarn compile && yarn generate-contract-abi && yarn generate-index && yarn export-deployments",
     "build": "tsc --project tsconfig.build.json",
-    "deploy:test": "yarn hardhat deploy --network polygon-testnet"
+    "deploy:test": "yarn hardhat deploy --network polygon-mumbai"
   },
   "devDependencies": {
+    "@alchemy/aa-accounts": "^2.4.0",
+    "@alchemy/aa-alchemy": "^2.4.0",
+    "@alchemy/aa-core": "^2.3.1",
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.6",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.10",
     "@nomicfoundation/hardhat-verify": "^2.0.4",
@@ -41,7 +44,8 @@
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
     "typechain": "^8.3.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "viem": "^1.21.4"
   },
   "dependencies": {
     "@openzeppelin/contracts-upgradeable": "^4.8.3",
