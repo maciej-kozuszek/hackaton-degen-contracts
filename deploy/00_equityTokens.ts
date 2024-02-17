@@ -31,15 +31,18 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
     const equity = await deploy(_equityName, {
         from: deployer,
+        skipIfAlreadyDeployed: true,
         log: true,
         args: [],
     })
 
     const equityFactory = await deploy(_equityFactory, {
         from: deployer,
+        skipIfAlreadyDeployed: true,
         log: true,
         args: [equity.address],
     })
+
     const deployerProvider = await ethers.getSigner(deployer)
     const factory = EquityTokenFactory__factory.connect(equityFactory.address, deployerProvider)
 

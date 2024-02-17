@@ -1,33 +1,35 @@
 import { loadConfig } from 'config'
 import { DeployFunction } from 'hardhat-deploy/types'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
+import { Orderbook__factory } from 'src/typechain'
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts } = hre
     const { deployer } = await getNamedAccounts()
     const { deploy } = deployments
     const config = loadConfig(hre.network.name)
-    const _stableName = 'StableCoin'
-    const _equityName = 'EquityToken'
-    const _tokName = 'TOK'
 
-    const lightAccFactory = await deploy('LightAccountFactory', {
+    const stableCoinName = 'StableCoin'
+
+    const stableCoin = await deploy(stableCoinName, {
         from: deployer,
         log: true,
-        args: [config.entryPoint],
+        skipIfAlreadyDeployed: true,
+        args: [],
     })
 
-    const stable = await deploy(_stableName, {
+    const orderbook = await deploy('Orderbook', {
         from: deployer,
         log: true,
+        skipIfAlreadyDeployed: true,
+        args: [],
     })
 
-    const tok = await deploy(_tokName, {
-        from: deployer,
-        log: true,
-    })
+    if (orderbook.newlyDeployed) {
+        Orderbook__factory.connect(orderbook.address, await hre.ethers.getSigner(deployer)).initialize(stableCoin.address)
+    }
 }
 
-func.tags = ['deploy']
+func.tags = ['orderbook']
 
 export default func

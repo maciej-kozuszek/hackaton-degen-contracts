@@ -12,7 +12,16 @@ import { CHAIN_IDS, CHAIN_NAMES, KNOWN_NETWORK } from './config/constants'
 
 dotenv.config()
 const config: HardhatUserConfig = {
-    solidity: '0.8.18',
+    solidity: {
+        version: '0.8.18',
+        settings: {
+            viaIR: true,
+            optimizer: {
+                enabled: true,
+                runs: 200,
+            },
+        },
+    },
     typechain: {
         outDir: './src/typechain',
         target: 'ethers-v5',

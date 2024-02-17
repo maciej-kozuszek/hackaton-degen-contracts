@@ -29,6 +29,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
     await deploy(stableCoinName, {
         from: deployer,
+        skipIfAlreadyDeployed: true,
         log: true,
         args: [],
     })
