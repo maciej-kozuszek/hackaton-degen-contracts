@@ -1,4 +1,18 @@
 /node_modules
-cache
-artifacts
-typechain
+.env
+.vscode
+/dist
+
+# Hardhat files
+/cache
+/artifacts
+
+# TypeChain files
+/typechain
+/typechain-types
+/src/typechain
+/src/abi
+
+# solidity-coverage files
+/coverage
+/coverage.json
