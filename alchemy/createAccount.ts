@@ -32,9 +32,6 @@ export const test = async (tokAddress: string) => {
         },
     ]
 
-    const test = getProvider('https://polygon-mumbai.alchemyapi.io/v2/your-api-key', '80001')
-
-    test.send('')
     const tok = TOK__factory.connect(tokAddress, getProvider('https://polygon-mumbai.alchemyapi.io/v2/your-api-key', '80001'))
 
     const batchOrders: BatchUserOperationCallData = []

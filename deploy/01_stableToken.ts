@@ -29,12 +29,12 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
     await deploy(stableCoinName, {
         from: deployer,
-        skipIfAlreadyDeployed: true,
+        skipIfAlreadyDeployed: false,
         log: true,
         args: [],
     })
 }
 
-func.tags = ['stable-token']
+func.tags = ['stable-token', 'deploy']
 
 export default func

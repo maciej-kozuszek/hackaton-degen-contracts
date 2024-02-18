@@ -30,6 +30,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     }
 }
 
-func.tags = ['orderbook']
+func.tags = ['orderbook', 'deploy']
 
 export default func

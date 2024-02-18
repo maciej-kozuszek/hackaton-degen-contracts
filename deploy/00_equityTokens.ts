@@ -58,6 +58,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     console.log('pkoToken', pkoTokenContract.address)
 }
 
-func.tags = ['equity-tokens']
+func.tags = ['equity-tokens', 'deploy']
 
 export default func

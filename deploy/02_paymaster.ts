@@ -10,12 +10,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deploy } = deployments
 
     const paymasterName = 'Paymaster'
+    const entrypoint = '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789'
 
     const paymaster = await deploy(paymasterName, {
         from: deployer,
         skipIfAlreadyDeployed: true,
         log: true,
-        args: ['0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789'],
+        args: [entrypoint],
     })
 
     const deployerProvider = await ethers.getSigner(deployer)
@@ -31,6 +32,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     }
 }
 
-func.tags = ['paymaster']
+func.tags = ['paymaster', 'deploy']
 
 export default func
