@@ -1,6 +1,5 @@
-import { getChainId, call, signData, RSV } from './rpc'
-import { hexToUtf8 } from './lib'
-import { BigNumber } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
+import { RSV, call } from './rpc'
 
 const MAX_INT = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 
@@ -75,8 +74,8 @@ export const signatureTypes: SignatureTypes = {
 export function getCreateOrderTypedData(order: CreateOrderMessage, permit: ERC2612PermitMessage, domain: Domain): SignatureTypedData {
     return {
         domain: {
-            name: domain.name,
-            version: domain.version,
+            name: 'TestStableCoin',
+            version: '1',
             chainId: domain.chainId,
             verifyingContract: domain.verifyingContract,
         },
@@ -101,8 +100,8 @@ export function getCreateOrderTypedData(order: CreateOrderMessage, permit: ERC26
 export function getApproveOrderTypedData(data: ApproveOrderMessage, permit: ERC2612PermitMessage, domain: Domain): SignatureTypedData {
     return {
         domain: {
-            name: domain.name,
-            version: domain.version,
+            name: 'EquityToken',
+            version: '1',
             chainId: domain.chainId,
             verifyingContract: domain.verifyingContract,
         },
@@ -121,40 +120,39 @@ export function getApproveOrderTypedData(data: ApproveOrderMessage, permit: ERC2
 }
 
 const NONCES_FN = '0x7ecebe00'
-const NAME_FN = '0x06fdde03'
 
 const zeros = (numZeros: number) => ''.padEnd(numZeros, '0')
 
-const getTokenName = async (provider: any, address: string) => hexToUtf8((await call(provider, address, NAME_FN)).substr(130))
+export const signPermitCreateOrder = async ({
+    provider,
+    equityToken,
+    equityTokenOwner,
+    pricePerToken,
+    equityTokenAmount,
+    tokenAddress,
+    tokenName,
+    chainId,
+    owner,
+    spender,
+    value = MAX_INT,
+    deadline,
+    nonce,
+}: {
+    provider: any
+    equityToken: string
+    equityTokenOwner: string
+    pricePerToken: BigNumber
+    equityTokenAmount: BigNumber
+    tokenAddress: string
+    tokenName: string
+    chainId: number
 
-const getDomain = async (provider: any, token: string | Domain): Promise<Domain> => {
-    if (typeof token !== 'string') {
-        return token as Domain
-    }
-
-    const tokenAddress = token as string
-
-    const [name, chainId] = await Promise.all([getTokenName(provider, tokenAddress), getChainId(provider)])
-
-    const domain: Domain = { name, version: '1', chainId, verifyingContract: tokenAddress }
-    return domain
-}
-
-export const signPermitCreateOrder = async (
-    provider: any,
-    equityToken: string,
-    equityTokenOwner: string,
-    pricePerToken: BigNumber,
-    equityTokenAmount: BigNumber,
-    token: string | Domain,
-    owner: string,
-    spender: string,
-    value: string | number = MAX_INT,
-    deadline?: number,
-    nonce?: number,
-): Promise<ERC2612PermitMessage & RSV> => {
-    const tokenAddress = (token as Domain).verifyingContract || (token as string)
-
+    owner: string
+    spender: string
+    value: string | number
+    deadline?: number
+    nonce?: number
+}): Promise<ERC2612PermitMessage & RSV> => {
     const orderMessage: CreateOrderMessage = {
         equityToken: equityToken,
         equityTokenOwner: equityTokenOwner,
@@ -170,28 +168,42 @@ export const signPermitCreateOrder = async (
         deadline: deadline || MAX_INT,
     }
 
-    const domain = await getDomain(provider, token)
-    const typedData = getCreateOrderTypedData(orderMessage, permitMessage, domain)
-    const sig = await signData(provider, owner, typedData)
+    const _domain: Domain = {
+        name: tokenName,
+        version: '1',
+        chainId: chainId,
+        verifyingContract: tokenAddress,
+    }
+    const { domain, message, types } = getCreateOrderTypedData(orderMessage, permitMessage, _domain)
+    const sig = await provider._signTypedData(domain, types, message)
 
-    return { ...sig, ...permitMessage, ...orderMessage }
+    const signattt = ethers.utils.splitSignature(sig)
+
+    return {
+        r: signattt.r,
+        s: signattt.s,
+        v: signattt.v,
+        ...permitMessage,
+        ...orderMessage,
+    }
 }
 
 export const signPermitApproveOrder = async (
     provider: any,
-    token: string | Domain,
+    tokenAddress: string,
+    tokenName: string,
+    chainId: number,
+    verifyingContract: string,
     owner: string,
     spender: string,
     value: string | number = MAX_INT,
     deadline?: number,
     nonce?: number,
 ): Promise<ERC2612PermitMessage & RSV> => {
-    const tokenAddress = (token as Domain).verifyingContract || (token as string)
-
     const approveMessage: ApproveOrderMessage = {
-        token: '0x',
-        tokenOwner: '0x',
-        tokenAmount: '0',
+        token: tokenAddress,
+        tokenOwner: owner,
+        tokenAmount: value.toString(),
         pricePerToken: '0',
     }
 
@@ -203,9 +215,22 @@ export const signPermitApproveOrder = async (
         deadline: deadline || MAX_INT,
     }
 
-    const domain = await getDomain(provider, token)
-    const typedData = getApproveOrderTypedData(approveMessage, permitMessage, domain)
-    const sig = await signData(provider, owner, typedData)
+    const _domain: Domain = {
+        name: tokenName,
+        version: '1',
+        chainId: chainId,
+        verifyingContract: verifyingContract,
+    }
+    const { domain, message, types } = getApproveOrderTypedData(approveMessage, permitMessage, _domain)
+    const sig = await provider._signTypedData(domain, types, message)
 
-    return { ...sig, ...permitMessage, ...approveMessage }
+    const signattt = ethers.utils.splitSignature(sig)
+
+    return {
+        r: signattt.r,
+        s: signattt.s,
+        v: signattt.v,
+        ...permitMessage,
+        ...approveMessage,
+    }
 }

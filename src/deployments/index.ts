@@ -1,7 +1,11 @@
 import deployments from "./deployments.json"
 
 export interface Deployments {
-
+    EquityToken: string
+    EquityTokenFactory: string
+    StableCoin: string
+    Paymaster: string
+    Orderbook: string
 }
 
 export function getDeployments(chainId: 80001) {
